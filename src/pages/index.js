@@ -8,11 +8,12 @@ const IndexPage = ({ data }) => {
     <Layout pageTitle="home">
       <div className="text-grey-500 font-poppins">
         <p>I'm a digital media maker.</p>
-        <p>Since 2016 I have been making photostories, recording videos and trying to do stuff with JS. Actually I'm studing at Accademia di Belle Arti di Carrara (<a href="https://www.accademiacarrara.it/it/scuole/nuove-tecnologie-dellarte">Nuove tecnologie dell'arte</a>) and I'm based in La Spezia (it).</p>
+        <p>Since 2016, I have been creating digital stuff by tinkering with code both online and offline. Actually I'm studing net.art at Accademia di Belle Arti di Carrara and I'm based in La Spezia (it).</p>
       </div>
 
-      <StaticImage className="my-8 animate-fadeout" src="../images/sb_omen_v20034.jpg" />
+      {/* <StaticImage className="my-8 animate-fadeout" src="../images/sb_omen_v20034.jpg" /> */}
 
+      <iframe className="my-8 animate-fadeout w-full h-[60vh]" src="https://hydra.ojack.xyz/?code=b3NjKDElMkMlMjAwLjUlMkMlMjAwLjAwMSklMEElMjAlMjAlMjAlMjAua2FsZWlkKCU1QjMlMkM0JTJDNSUyQzclMkM4JTJDOSUyQzEwJTVELmZhc3QoMC4wMSkpJTBBJTIwJTIwJTIwJTIwLmNvbG9yKDAuNyUyQyUyMDAuMyklMEElMjAlMjAlMjAlMjAuY29sb3JhbWEoLjEpJTBBJTIwJTIwLmRpZmYoZ3JhZGllbnQoLjMpKSUwQSUyMCUyMC5hZGQoc2hhcGUoMiUyQzIpLmJsZW5kKGdyYWRpZW50KDEpKSklMEElMjAlMjAubW9kdWxhdGUobm9pc2UoKSklMEElMjAlMjAlMjAlMjAucm90YXRlKDIlMkMoKSUzRCUzRU1hdGguc2luKHRpbWUpKiUyMC0wLjAwMDElMjApJTBBJTIwJTIwJTIwJTIwLm1vZHVsYXRlUm90YXRlKG8wJTJDKCklM0QlM0VNYXRoLnNpbih0aW1lKSUyMColMjAwLjAwMDEpJTBBJTIwJTIwJTIwJTIwLm1vZHVsYXRlKG8wJTJDJTIwMC45KSUwQSUyMCUyMCUyMCUyMC5zY2FsZSguNSklMEElMjAlMjAlMjAlMjAub3V0KG8wKSUwQSUwQSUwQQ%3D%3D"></iframe>
       <h3 className="font-poppins text-2xl text-gray-500">Latest experiences</h3>
 
 
