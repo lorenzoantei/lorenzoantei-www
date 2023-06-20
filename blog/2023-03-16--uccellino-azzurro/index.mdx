@@ -1,0 +1,89 @@
+---
+title: "Uccellino azzurro - Animatronics design"
+date: "2023-03-16"
+hero_image: "./assets/23-03-17_uccellino_cover.webp"
+hero_image_alt: "Uccellini azzurri durante lo spettacolo"
+hero_image_credit_text: "Lorenzo Antei"
+hero_image_credit_link: "lorenzoantei.com"
+---
+
+### On 13 March 2023, the premiere of "L'uccellino blu" was staged at Teatro dell'Antella (FI). The show is an adaptation of Maeterling's fable and was directed by Riccardo Massai. For the show, I have collaborated with MassimoDelContrasto to create animatronics of the blue birds.
+
+## Develpment
+
+<video class="py-12" src="assets/parte_1/test_proto_board_1.mp4" muted controls></video>
+<img class="py-12" src="assets/parte_1/appunti_proto_board.webp"/>
+<img class="py-12"  src="assets/parte_1/proto_board.webp"/>
+
+``` 
+// Uccellino blu - Arduino nano
+
+#include <Arduino.h>
+#include <Servo.h>
+#define servoPin 9
+Servo myservo;
+int pos = 0; // init position
+// 120 - 540
+#define ldrPin A0
+
+void setup() {
+  myservo.attach(servoPin);
+  pinMode(ldrPin, INPUT);
+}
+
+void flight(speed) {
+    for (pos = 0; pos <= 90; pos += delta) {
+      myservo.write(pos);
+      delay(speed);
+    }
+    for (pos = 90; pos >= 0; pos -= delta) { 
+      myservo.write(pos);
+      delay(speed);                    
+    }
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin);
+  Serial.println(ldrValue);
+  int delta = map(ldrValue,0,1024,0, 10);
+
+  if (delta > 0) { // Won't you fly high, blue bird, yeah
+    flight(delta);
+  } else { // fly down
+    myservo.write(0);
+  }
+}
+```
+<img class="py-12" src="assets/parte_2/scansione_a1.webp"/>
+<img class="py-12" src="assets/parte_2/scansione_a2.webp"/>
+<img class="py-12" src="assets/parte_2/scansione_a3.webp"/>
+<video class="py-12" src="assets/parte_2/test_1.mp4" muted controls></video>
+<video class="py-12" src="assets/parte_2/prototipo_1.mp4" muted controls></video>
+<video class="py-12" src="assets/parte_2/test_2.mp4" muted controls></video>
+
+<img class="py-12" src="assets/parte_3/scansione_b1.webp"/>
+<img class="py-12" src="assets/parte_3/scansione_b2.webp"/>
+<img class="py-12" src="assets/parte_3/ricerca_servo.webp"/>
+<img class="py-12" src="assets/parte_3/dev_umbrella_1.webp"/>
+<img class="py-12" src="assets/parte_3/dev_umbrella_2.webp"/>
+<img class="py-12" src="assets/parte_3/dev_umbrella_3.webp"/>
+<video class="py-12" src="assets/parte_3/test_3.mp4" muted controls></video>
+<video class="py-12" src="assets/parte_3/test_servo.mp4" muted controls></video>
+<img class="py-12" src="assets/parte_3/scansione_b3.webp"/>
+<video class="py-12" src="assets/parte_3/test_servo_2.mp4" muted controls></video>
+<video class="py-12" src="assets/parte_3/test_psupply.mp4" muted controls></video>
+
+<img class="py-12" src="assets/parte_4/piume_1.webp"/>
+<img class="py-12" src="assets/parte_4/piume_2.webp"/>
+<img class="py-12" src="assets/parte_4/pittura.webp"/>
+<video class="py-12" src="assets/parte_4/installazione.mp4" muted controls></video>
+
+<img class="py-12" src="assets/parte_5/scansione_13.webp"/>
+<img class="py-12" src="assets/parte_5/teatro_1.webp"/>
+<img class="py-12" src="assets/parte_5/teatro_2.webp"/>
+<img class="py-12" src="assets/parte_5/teatro_3.webp"/>
+
+<video class="py-12" src="assets/parte_6/ripresa_spettacolo.mp4" muted controls></video>
+
+<p><a href="https://www.archetipoac.it/events/luccellino-azzurro/">Here</a> you can find the event page on the theater's website.</p>
+<p><a href="https://www.rainews.it/tgr/toscana/video/2023/03/watchfolder-tgr-toscana-web-severi---l-uccellino-azzurromxf-7cb8a417-8bea-4fee-b7d2-531ef93a2c34.html">Here</a> you can find a news segment about the regional theater show on the local news channel.</p>
