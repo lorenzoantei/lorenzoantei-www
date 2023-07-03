@@ -7,7 +7,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout pageTitle="home">
       <div className="text-grey-500 font-poppins">
-        <p>I'm a digital media maker.</p>
+        <p>Computer artist.</p>
         <p>Since 2016, I have been creating digital stuff by tinkering with code both online and offline. Actually I'm studing net.art at Accademia di Belle Arti di Carrara and I'm based in La Spezia (it).</p>
       </div>
 
