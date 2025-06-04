@@ -1,8 +1,17 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+import HydraFrame from '../components/HydraFrame.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
 ---
 
 <!doctype html>
@@ -11,38 +20,171 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
+		
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		
+
+<style>
+  .blink-cursor {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+.glitchy {
+  display: inline-block;
+  animation: glitch 0.4s steps(2, end) infinite;
+  color: var(--glitch-color, #0f0);
+}
+
+.delay-1 {
+  animation-delay: 0s;
+}
+
+.delay-2 {
+  animation-delay: 0.23s;
+}
+
+@keyframes glitch {
+  0%   { transform: translate(0); opacity: 1; }
+  20%  { transform: translate(-1px, 1px); opacity: 0.8; }
+  40%  { transform: translate(1px, -2px); opacity: 0.6; }
+  60%  { transform: translate(-2px, 2px); opacity: 0.9; }
+  80%  { transform: translate(2px, -1px); opacity: 0.7; }
+  100% { transform: translate(0); opacity: 1; }
+}
+
+
+</style>
+
+<script>
+// JS da inserire in pagina o componente
+const glitchElements = document.querySelectorAll('.glitchy');
+
+function getRandomColor() {
+  // Genera colore HEX casuale
+  return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+}
+
+glitchElements.forEach(el => {
+  el.addEventListener('animationiteration', () => {
+    el.style.setProperty('--glitch-color', getRandomColor());
+  });
+});
+</script>
+
+<section class="mx-3 md:mx-24">
+  <div class="mt-24 mb-46 md:mb-0 md:my-24 h-auto text-7xl md:text-4xl">
+    <h2 class="md:text-[100px] font-bold">hello,</h2>
+    <h1 class="md:text-[100px] font-bold flex flex-col lg:flex-row">
+      <span class="pt-6 lg:pt-0">I'm</span>
+      <div class="hidden lg:block">&nbsp;</div>
+      <div class="flex flex-col lg:flex-row">
+        <div class="underline flex lg:flex-row flex-col pt-3 md:pb-0">
+          <span>Lorenzo</span>
+          <div class="hidden lg:block">&nbsp;</div>
+          <div class="pt-6 md:pt-0">
+            <span>Antei</span>
+            <span class="inline-block blink-cursor "><span></span>&nbsp;|</span>
+          </div>
+        </div>
+      </div>
+    </h1>
+  </div>
+
+  <div class="h-auto md:max-w-1/2">
+    <div id="bio-container" class="text-2xl my-12 md:my-32">
+	
+      <div id="bio-short">
+        <p>I'm a computer artist. I do bizarre live coding sessions with highly questionable Arduino-based contraptions, and moonlight as a full stack web dev and video editor when I'm not frying microcontrollers.</p>
+        <button 
+          class="mt-6 pr-8 pt-8 pb-1 bg-black animate-pulse bg-opacity-50 text-white opacity-100 duration-3000"
+          onclick="toggleText()"
+        >
+          More...
+        </button>
+      </div>
+
+      <div id="bio-full" class="hidden space-y-6">
+        <p>I am an Italian artist and software engineer, graduated in Net Art and Digital Cultures from the Accademia di Belle Arti di Carrara with the thesis <i>Catturare l'effimero - L’archivio come azione artivista - verso un’estetica dell’effimero</i> (2025). I explore code across networks and realities, moving between digital art and creative programming.</p>
+
+		<p>I’ve taken part in numerous exhibitions, both in physical spaces and across the ether, pursuing a research path that blends irony, hacking, and critical intervention. I’ve created animatronics for theatrical performances, joined live coding nights with highly questionable Arduino-based hardware, and developed audiovisual experiences on the edge between performance and crash.</p>
+
+		<p>Alongside my practice, I collaborate with international entities such as Songlines Production, Omava Production and Lucca Crea (Lucca Comics & Games), handling media management and video editing for various projects... By day, I work as a full stack web developer at Quivi, building custom web applications.</p>
+
+		<p>I approach life as a constant flow, where the only certainty is the process of creating, evolving, and breaking things down to rebuild them again. 
+			<span class="glitchy delay-1">Again.</span>
+			<span class="glitchy delay-2">And again.</span>
+		</p>
+            
+	<section class="bg-gray-100 p-2 rounded-lg md:mx-0 mx-2 md:max-w-200 my-12">
+  		<pre 
+			class="bg-gray-900 text-green-400 font-mono text-sm leading-relaxed p-4 rounded overflow-x-auto whitespace-pre-wrap break-words"
+		>
+			{`int main() {
+				LifeLoop loop;
+				std::cout << "The loop is everything; everything is the loop." << std::endl;
+				loop.run();
+				return 0;
+			}`}
+		</pre>
+	</section>
+
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<HydraFrame src="https://hydra.ojack.xyz/?code=b3NjKDElMkMlMjAwLjUlMkMlMjAwLjAwMSklMEElMjAlMjAlMjAlMjAua2FsZWlkKCU1QjMlMkM0JTJDNSUyQzclMkM4JTJDOSUyQzEwJTVELmZhc3QoMC4wMSkpJTBBJTIwJTIwJTIwJTIwLmNvbG9yKDAuNyUyQyUyMDAuMyklMEElMjAlMjAlMjAlMjAuY29sb3JhbWEoLjEpJTBBJTIwJTIwLmRpZmYoZ3JhZGllbnQoLjMpKSUwQSUyMCUyMC5hZGQoc2hhcGUoMiUyQzIpLmJsZW5kKGdyYWRpZW50KDEpKSklMEElMjAlMjAubW9kdWxhdGUobm9pc2UoKSklMEElMjAlMjAlMjAlMjAucm90YXRlKDIlMkMoKSUzRCUzRU1hdGguc2luKHRpbWUpKiUyMC0wLjAwMDElMjApJTBBJTIwJTIwJTIwJTIwLm1vZHVsYXRlUm90YXRlKG8wJTJDKCklM0QlM0VNYXRoLnNpbih0aW1lKSUyMColMjAwLjAwMDEpJTBBJTIwJTIwJTIwJTIwLm1vZHVsYXRlKG8wJTJDJTIwMC45KSUwQSUyMCUyMCUyMCUyMC5zY2FsZSguNSklMEElMjAlMjAlMjAlMjAub3V0KG8wKQ%3D%3D" title="cubotic waves" />
+
+<section class="mx-3 md:mx-24">
+
+<section>
+				<ul>
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									<img width={720} height={360} src={post.data.heroImage} alt="" />
+									<h4 class="title">{post.data.title}</h4>
+									<p class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+</section>
+
+<script is:inline>
+  function toggleText() {
+    const short = document.getElementById('bio-short');
+    const full = document.getElementById('bio-full');
+    const bioContainer = document.getElementById('bio-container');
+    if (short.classList.contains('hidden')) {
+      short.classList.remove('hidden');
+      full.classList.add('hidden');
+    } else {
+      short.classList.add('hidden');
+      full.classList.remove('hidden');
+    }
+    if (bioContainer) {
+      bioContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+</script>
+
+
 		</main>
 		<Footer />
 	</body>
