@@ -1,0 +1,64 @@
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+// 1. Ottieni e ordina le ultime 5 esperienze
+const allExps = (await getCollection("exps"))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 5);
+
+// 2. Palette colori Tailwind (deve esistere nel config)
+const bgColors = [
+  "hover:bg-pink-500",
+  "hover:bg-blue-500",
+  "hover:bg-green-500",
+  "hover:bg-yellow-400",
+  "hover:bg-purple-500",
+  "hover:bg-rose-400",
+  "hover:bg-cyan-400",
+];
+
+// 3. Funzioni di random
+const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+const getRandomTransform = () => {
+  const tx = Math.floor(Math.random() * 5) - 2;
+  const ty = Math.floor(Math.random() * 5) - 2;
+  const rot = Math.floor(Math.random() * 5) - 2;
+  return `translate-x-[${tx}px] translate-y-[${ty}px] rotate-[${rot}deg]`;
+};
+---
+
+<div>
+  <div class="py-3">[</div>
+
+  {
+    allExps.map((exp, index) => {
+      const colorClass = getRandomItem(bgColors);
+      const transformClass = getRandomTransform();
+
+      return (
+        <div key={exp.id} class="hover:animate-pulse hover:text-black">
+          <a href={`/exps/${exp.id}`}>
+            <div
+              class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-500 ease-in-out hover:scale-[1.08] hover:hover-weird-blip ${colorClass} ${transformClass}`}
+            >
+              <div class="pl-2">{"{"}</div>
+              <div class="pl-4">"title": "{exp.data.title}",</div>
+              <div class="pl-4">
+                "date": "<FormattedDate date={exp.data.pubDate} />
+                ",
+              </div>
+              <div class="pl-2">
+                {"}"}
+                {index < allExps.length - 1 ? "," : ""}
+              </div>
+            </div>
+          </a>
+        </div>
+      );
+    })
+  }
+
+  <div class="py-3">]</div>
+</div>

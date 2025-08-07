@@ -27,3 +27,63 @@
   .hover\:hover-weird-blip:hover {
     animation: weird-blip 0.3s ease-in-out;
   }
+
+  .blink-cursor {
+    animation: pulse-delay 11s steps(1, end) infinite;
+  }
+
+  @keyframes pulse-delay {
+    0% {
+      opacity: 1;
+    }
+    90.9% {
+      opacity: 1; /* fino a ~10s (10s / 11s = ~91%) */
+    }
+    95.4% {
+      opacity: 0; /* breve blink */
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .glitchy {
+    display: inline-block;
+    animation: glitch 0.4s steps(2, end) infinite;
+    color: var(--glitch-color, #0f0);
+  }
+
+  .delay-1 {
+    animation-delay: 0s;
+  }
+
+  .delay-2 {
+    animation-delay: 0.23s;
+  }
+
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+      opacity: 1;
+    }
+    20% {
+      transform: translate(-1px, 1px);
+      opacity: 0.8;
+    }
+    40% {
+      transform: translate(1px, -2px);
+      opacity: 0.6;
+    }
+    60% {
+      transform: translate(-2px, 2px);
+      opacity: 0.9;
+    }
+    80% {
+      transform: translate(2px, -1px);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translate(0);
+      opacity: 1;
+    }
+  }
