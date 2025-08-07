@@ -23,16 +23,21 @@ const allExps = (await getCollection('exps'))
     <main>
       <style>
         .blink-cursor {
-          animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse-delay 11s steps(1, end) infinite;
         }
 
-        @keyframes pulse {
-          0%,
-          100% {
+        @keyframes pulse-delay {
+          0% {
             opacity: 1;
           }
-          50% {
-            opacity: 0;
+          90.9% {
+            opacity: 1; /* fino a ~10s (10s / 11s = ~91%) */
+          }
+          95.4% {
+            opacity: 0; /* breve blink */
+          }
+          100% {
+            opacity: 1;
           }
         }
 
@@ -119,7 +124,7 @@ const allExps = (await getCollection('exps'))
 
               <div class="pt-6 2xl:pt-0 flex items-center space-x-2">
                 <span class="border-b-4 border-black pb-1">Antei</span>
-                <span class="inline-block blink-cursor text-black/30">|</span>
+                <span class="inline-block blink-cursor text-black">|</span>
               </div>
             </div>
           </h1>
@@ -135,7 +140,7 @@ const allExps = (await getCollection('exps'))
                 microcontrollers.
               </p>
               <button
-                class="pl-1 mt-6 pr-8 pt-8 pb-1 bg-black animate-pulse bg-opacity-50 text-white opacity-100 duration-3000 pointer-events-auto cursor-pointer"
+                class="pl-1 mt-6 pr-8 pt-8 pb-1 bg-black animate-pulse bg-opacity-50 text-white opacity-100 duration-3000 pointer-events-auto cursor-pointer hover:underline"
                 onclick="toggleText()"
               >
                 More...
@@ -227,22 +232,25 @@ const allExps = (await getCollection('exps'))
           </h3>
 
 
-            <div class="">
-              <div class="py-3">[</div>
-              {allExps.map((exp, index) => (
-                  <div class="">
-                  <a href={`/exps/${exp.id}`}>
-                    <div class="px-2 text-xl py-4 ml-6 hover:bg-pink-500 rounded-tr-lg rounded-br-lg animate ease-in-out duration-500">
-                      <div class="pl-2">{'{'}</div>
-                      <div class="pl-4">"title": "{exp.data.title}",</div>
-                      <div class="pl-4">"date": "<FormattedDate date={exp.data.pubDate} />",</div>
-                      <div class="pl-2">{'}'}{index < allExps.length - 1 ? ',' : ''}</div>
-                    </div>
-                  </a>
+          <div class="">
+            <div class="py-3">[</div>
+          
+            {allExps.map((exp, index) => (
+              <div key={exp.id}>
+                <a href={`/exps/${exp.id}`}>
+                  <div class="group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-500 ease-in-out hover:bg-pink-500 hover:rotate-1 hover:shadow-[0_0_15px_#ff00ff] hover:scale-[1.02] hover:hover-weird-blip">
+                    <div class="pl-2">{'{'}</div>
+                    <div class="pl-4">"title": "{exp.data.title}",</div>
+                    <div class="pl-4">"date": "<FormattedDate date={exp.data.pubDate} />",</div>
+                    <div class="pl-2">{'}'}{index < allExps.length - 1 ? ',' : ''}</div>
+                  </div>
+                </a>
               </div>
-                ))}
-              <div class="py-3">]</div>
-            </div>
+            ))}
+          
+            <div class="py-3">]</div>
+          </div>
+          
 
             <div class="py-12">
 
