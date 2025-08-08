@@ -1,0 +1,152 @@
+<div class="h-auto">
+    <div id="bio-container" class="text-2xl my-12 md:my-32">
+      <div id="bio-short" class="md:max-w-1/2">
+        <p>
+          I'm a computer artist. I do bizarre live coding sessions with highly
+          questionable Arduino-based contraptions, and moonlight as full stack
+          web dev and video editor when I'm not frying microcontrollers.
+        </p>
+        <button
+          class="pl-1 mt-6 pr-8 pt-8 pb-1 bg-black animate-pulse bg-opacity-50 text-white opacity-100 duration-3000 pointer-events-auto cursor-pointer hover:underline"
+          onclick="toggleText()"
+        >
+          More...
+        </button>
+      </div>
+
+      <div
+        id="bio-full"
+        class="hidden space-y-6 opacity-0 transition-opacity duration-1000 pt-32"
+      >
+        <div class="flex md:flex-row flex-col justify-between">
+          <div
+            class="md:max-w-1/2 text-2xl md:text-3xl tracking-wide leading:8 md:leading-12"
+          >
+            <p>
+              I am an Italian artist and software engineer; I explore code
+              across networks and realities, moving between digital art and
+              creative programming.
+            </p>
+            <p>
+              My creative spark first lit up into empty spaces during
+              university. Digital photograpy became my way to slow down time —
+              to walk barefoot through reality, notice its cracks, its
+              reflections, its fleeting glances. It grounded me while also
+              opening portals. That tactile relationship with the world sparked
+              a need to go deeper. I carried that curiosity with me into the
+              academy, where it found room to grow.
+            </p>
+            <p>
+              I graduated in Net Art and Digital Cultures from the Accademia di
+              Belle Arti di Carrara with the thesis <i
+                >Catturare l'effimero - L’archivio come azione artivista - verso
+                un’estetica dell’effimero</i
+              > (2025).
+            </p>
+
+            <p>
+              I’ve taken part in numerous exhibitions, both in physical spaces
+              and across the ether, pursuing a research path that blends irony,
+              hacking, and critical intervention. I’ve created animatronics for
+              theatrical performances, joined live coding nights with highly
+              questionable Arduino-based hardware, and developed audiovisual
+              experiences on the edge between performance and crash.
+            </p>
+
+            <p>
+              Alongside my practice, I collaborate with international entities
+              such as Songlines Production, Omava Production and Lucca Crea
+              (Lucca Comics & Games), handling media management and video
+              editing for various projects... By day, I work as a full stack web
+              developer at Quivi, building custom web applications.
+            </p>
+
+            <p>
+              I approach life as a constant flow, where the only certainty is
+              the process of creating, evolving, and breaking things down to
+              rebuild them again.
+              <span class="glitchy delay-1">Again.</span>
+              <span class="glitchy delay-2">And again.</span>
+            </p>
+          </div>
+
+          <div
+            class="sticky top-20 max-w-xs w-full md:py-0 py-32"
+            style="max-height: calc(100vh - 5rem);"
+          >
+            <div class="relative w-full aspect-square">
+              <img
+                src="./public/avatart.gif"
+                alt="Avatar"
+                class="object-cover w-full h-full"
+                style="max-height: 100%;"
+              />
+            </div>
+          </div>
+
+          <!-- <section
+            class="bg-gray-100 p-2 rounded-lg md:mx-0 mx-2 md:max-w-200 my-12"
+          >
+            <pre
+              class="bg-gray-900 text-green-400 font-mono text-sm leading-relaxed p-4 rounded overflow-x-auto whitespace-pre-wrap break-words">
+              {`int main() {
+                LifeLoop loop;
+                std::cout << "The loop is everything; everything is the loop." << std::endl;
+                loop.run();
+                return 0;
+              }`}
+            </pre>
+          </section> -->
+        </div>
+      </div>
+
+
+      <!-- Controlla il toggle del testo in bio  -->
+      <script is:inline>
+        function toggleText() {
+          const short = document.getElementById("bio-short");
+          const full = document.getElementById("bio-full");
+          const bioContainer = document.getElementById("bio-container");
+
+          if (short.classList.contains("hidden")) {
+            // Mostra short, nasconde full
+            short.classList.remove("hidden");
+            full.classList.add("opacity-0"); // nasconde gradualmente
+            setTimeout(() => {
+              full.classList.add("hidden");
+            }, 500); // dopo il fade-out
+          } else {
+            // Nasconde short, mostra full con fade-in
+            short.classList.add("hidden");
+            full.classList.remove("hidden"); // rimuove hidden subito
+            setTimeout(() => {
+              full.classList.remove("opacity-0"); // poi fade-in
+            }, 10); // piccolo delay per forzare il reflow
+          }
+
+          if (bioContainer) {
+            bioContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      </script>
+
+<script>
+    // JS da inserire in pagina o componente
+    const glitchElements = document.querySelectorAll(".glitchy");
+
+    function getRandomColor() {
+      // Genera colore HEX casuale
+      return (
+        "#" +
+        Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, "0")
+      );
+    }
+
+    glitchElements.forEach((el) => {
+      el.addEventListener("animationiteration", () => {
+        el.style.setProperty("--glitch-color", getRandomColor());
+      });
+    });
+  </script>
