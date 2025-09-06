@@ -1,0 +1,50 @@
+---
+// Props
+export interface Props {
+  /** Testo dell’etichetta */
+  label: string;
+  /** Destinazione del link */
+  href: string;
+  /**
+   * true  → animazione solo al hover
+   * false → animazione continua
+   */
+  blinkOnHoverOnly?: boolean; // default = false
+}
+
+// Valori di default
+const {
+  label,
+  href,
+  blinkOnHoverOnly = false,
+} = Astro.props;
+
+// Classe base condivisa
+const baseClasses = [
+  "pl-1",
+  "mt-6",
+  "pr-8",
+  "pt-8",
+  "pb-1",
+  "bg-black",
+  "bg-opacity-50",
+  "text-white",
+  "opacity-100",
+  "duration-3000",
+  "pointer-events-auto",
+  "cursor-pointer",
+  "hover:underline",
+];
+
+// Gestione dell’animazione:
+// • se blinkOnHoverOnly è true → aggiungiamo `hover:animate-pulse`
+// • altrimenti → `animate-pulse` (sempre)
+const animationClass = blinkOnHoverOnly
+  ? "hover:animate-pulse"
+  : "animate-pulse";
+
+const classes = [...baseClasses, animationClass].join(" ");
+---
+<a class={classes} href={href}>
+  {label}
+</a>

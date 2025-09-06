@@ -1,4 +1,7 @@
 ---
+
+import ExpsLayout from '../../layouts/ExpsLayout.astro';
+
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
@@ -14,67 +17,135 @@ const posts = (await getCollection('blog')).sort(
 
 // Ottieni anni unici
 const years = [...new Set(posts.map((p) => new Date(p.data.pubDate).getFullYear()))].sort((a, b) => b - a);
+
+const activePage='exps';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <main>
-      <section class="p-6">
-        <!-- Pulsanti Anni -->
-        <div class="mb-6 flex gap-2 flex-wrap">
-          <!-- <button data-year="all" class="filter-btn px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">All</button> -->
-          {years.map((year) => (
-            <button data-year={year} class="filter-btn px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">{year}</button>
-          ))}
-		<a href="/" class="filter-btn px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">goto Homepage</a>
-        </div>
+<ExpsLayout {activePage}>
 
-        <!-- Lista Esperienze -->
-        <ul id="posts-list" class="grid gap-6">
-          {posts.map((post) => {
-            const year = new Date(post.data.pubDate).getFullYear();
-            return (
-              <li data-year={year} class="post-item">
-                <a href={`/exps/${post.id}/`}>
-                  {post.data.heroImage && (
-                    <Image width={720} height={360} src={post.data.heroImage} alt="" />
-                  )}
-                  <h4 class="title">{post.data.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.data.pubDate} />
-                  </p>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-    </main>
-    <Footer />
+	<main class="min-h-screen pt-32">
+    <section class="p-6">
+      <h2 class="text-3xl bg-green-500 p-3 text-black inline-block">
+        Experiences
+      </h2>
+      <!-- Pulsanti Anni -->
+      <div class="mb-6 flex gap-2 flex-wrap pb-12">
+        {years.map((year) => (
+          <button 
+            data-year={year} 
+            class="filter-btn px-3 py-1 rounded hover:bg-black hover:text-cyan-500 transition-colors duration-300 cursor-pointer text-2xl"
+          >
+            {year}
+          </button>
+        ))}
+      </div>
+      
+      <div class="flex justify-start #text-[150px] #-mb-32 #-mt-32 #ml-12 py-2">
+        <p class="#rotate-90 origin-center inline-block">
+          [
+        </p>
+      </div>
+      <!-- Lista Esperienze -->
+      <ul id="posts-list" class="grid gap-6">
+        {posts.map((post, index) => {
+          const year = new Date(post.data.pubDate).getFullYear();
+      
+          // Logica colori e trasformazioni casuali
+          const bgColors = [
+            "hover:bg-pink-500",
+            "hover:bg-blue-500",
+            "hover:bg-green-500",
+            "hover:bg-yellow-400",
+            "hover:bg-purple-500",
+            "hover:bg-rose-400",
+            "hover:bg-cyan-400",
+          ];
+      
+          // Fisher–Yates shuffle
+          function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+          }
+      
+          const shuffledColors = shuffleArray(bgColors);
+          let colorIndex = 0;
+          const getNextColor = () => {
+            const color = shuffledColors[colorIndex];
+            colorIndex = (colorIndex + 1) % shuffledColors.length;
+            return color;
+          };
+      
+          const getRandomTransform = () => {
+            const tx = Math.floor(Math.random() * 5) - 2;
+            const ty = Math.floor(Math.random() * 5) - 2;
+            const rot = Math.floor(Math.random() * 5) - 2;
+            return `translate-x-[${tx}px] translate-y-[${ty}px] rotate-[${rot}deg]`;
+          };
+      
+          const colorClass = getNextColor();
+          const transformClass = getRandomTransform();
+      
+          return (
+            <li data-year={year} class="post-item hover:animate-pulse duration-3000">
+              <a href={`/exps/${post.id}/`}>
+                <div
+                  class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-500 ease-in-out hover:scale-[1.08] hover:hover-weird-blip ${colorClass} ${transformClass}`}
+                >
+                  <div class="pl-2">{"{"}</div>
+                  <div class=" pl-4 text-5xl text-black!important">"title": "{post.data.title}",</div>
+                  <div class="pl-4">
+                    "date": "<FormattedDate date={post.data.pubDate} />",
+                  </div>
+                  <div class="pl-2">
+                    {"}"}
+                    {index < posts.length - 1 ? "," : ""}
+                  </div>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="flex justify-start #text-[150px] #-mb-32 #-mt-32 #ml-12 py-2">
+        <p class="#rotate-90 origin-center inline-block">
+          ]
+        </p>
+      </div>
+      
+    </section>
+  </main>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const buttons = document.querySelectorAll(".filter-btn");
-        const posts = document.querySelectorAll(".post-item");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".filter-btn");
+  const posts = document.querySelectorAll(".post-item");
 
-        buttons.forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const year = btn.getAttribute("data-year");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const year = btn.getAttribute("data-year");
 
-            posts.forEach((post) => {
-              if (year === "all" || post.getAttribute("data-year") === year) {
-                post.style.display = "";
-              } else {
-                post.style.display = "none";
-              }
-            });
-          });
-        });
+      // Rimuove la classe active da tutti i pulsanti
+      buttons.forEach(b => b.classList.remove("bg-black", "text-orange-500"));
+
+      // Aggiunge classe active al pulsante cliccato
+      btn.classList.add("bg-black", "text-orange-500");
+
+      // Filtra i post
+      posts.forEach((post) => {
+        if (year === "all" || post.getAttribute("data-year") === year) {
+          post.style.display = "";
+        } else {
+          post.style.display = "none";
+        }
       });
-    </script>
-  </body>
-</html>
+    });
+  });
+});
+
+  </script>
+  
+</ExpsLayout>

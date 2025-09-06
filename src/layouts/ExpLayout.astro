@@ -1,0 +1,74 @@
+---
+import "../styles/global.css";
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import BaseHead from '../components/BaseHead.astro';
+
+import ExpsNavbar from '../components/ExpsNavbar.astro';
+
+import { Image } from 'astro:assets';
+
+import type { CollectionEntry } from 'astro:content';
+
+import Footer from '../components/Footer.astro';
+
+import FormattedDate from '../components/FormattedDate.astro';
+type Props = CollectionEntry<'blog'>['data'];
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const { years = [], posts = [] } = Astro.props;
+
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body class="">
+
+		<ExpsNavbar activePage="focus-article" />
+
+		<main class="pt-32">
+		
+			<article>
+				<!-- <div class="hero-image">
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				</div> -->
+				
+				<div class="px-6">
+					<div class="pb-20">
+						
+					<div class="px-32 py-24">
+						<h2 class="text-4xl">{title}</h2>
+						
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Last update	d on <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+						</div>
+					</div>
+						
+					</div>
+					<div class="px-32">
+
+						<slot />
+
+					</div>
+				</div>
+			</article>
+		</main>
+
+		<div class="px-36">
+			<div class="pt-36 pb-12">
+				<Footer />
+			</div>
+		</div>
+
+	</body>
+</html>

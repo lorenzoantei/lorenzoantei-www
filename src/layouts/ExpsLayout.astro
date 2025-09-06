@@ -1,0 +1,38 @@
+---
+import "../styles/global.css";
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from '../components/BaseHead.astro';
+
+import ExpsNavbar from '../components/ExpsNavbar.astro';
+const { activePage = '' } = Astro.props;
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+import Footer from '../components/Footer.astro';
+
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body class="">
+
+		<ExpsNavbar activePage="exps" />
+
+		<main class="p-3">
+
+            <slot />
+
+			<div class="px-8">
+				<div class="pt-36 pb-12">
+					<Footer />
+				</div>
+			</div>
+
+        </main>
+				
+	</body>
+</html>
