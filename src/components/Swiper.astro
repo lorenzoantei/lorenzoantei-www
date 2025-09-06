@@ -1,0 +1,93 @@
+---
+// src/components/Swiper.astro
+import { Swiper, SwiperWrapper, SwiperSlide } from "astro-swiper";
+
+export interface Props {
+  images: string[];
+  autoplay?: boolean;
+  delay?: number;
+  loop?: boolean;
+  maxWidth?: string;
+  aspectRatio?: string;
+}
+
+const { 
+  images, 
+  autoplay = true, 
+  delay = 5000, 
+  loop = true,
+  maxWidth = "455px",
+  aspectRatio = "16/9"
+} = Astro.props;
+
+// Configurazione Swiper
+const swiperOptions = {
+  ...(autoplay && {
+    autoplay: {
+      delay,
+      disableOnInteraction: false,
+      waitForTransition: false,
+    }
+  }),
+  loop,
+  pagination: {
+    clickable: true,
+  },
+  navigation: true,
+};
+---
+
+<Swiper options={swiperOptions}>
+  <SwiperWrapper>
+    {images.map((imageSrc, index) => (
+      <SwiperSlide key={index}>
+        <img 
+          src={imageSrc} 
+          alt={`Slide ${index + 1}`}
+          loading="lazy"
+        />
+      </SwiperSlide>
+    ))}
+  </SwiperWrapper>
+</Swiper>
+
+<style define:vars={{ maxWidth, aspectRatio }}>
+  .swiper {
+    max-width: var(--maxWidth);
+    aspect-ratio: var(--aspectRatio);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Stili per i controlli */
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: -20px;
+  }
+
+  :global(.swiper-button-next::after),
+  :global(.swiper-button-prev::after) {
+    font-size: 16px;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    background: white;
+  }
+</style>

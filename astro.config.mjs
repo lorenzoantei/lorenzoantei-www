@@ -6,7 +6,14 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://example.com",
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx({
+      components: {
+        // Importa il component Swiper
+        Swiper: './src/components/Swiper.astro',
+      },
+    }), 
+    sitemap()],
 
   vite: {
     plugins: [tailwindcss()],
