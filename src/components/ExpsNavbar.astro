@@ -3,17 +3,17 @@ import { SITE_TITLE } from "../consts";
 const { activePage = '' } = Astro.props;
 ---
 
-<div class="bg-white w-screen fixed z-[99] shadow-lg shadow-white">
+<div class="bg-white w-screen fixed z-[99] shadow-lg shadow-white pt-12 md:pt-0 ">
 
 <navbar
-  class="w-full transition-colors duration-300 ease-in-out "
+  class="w-full transition-colors duration-300 ease-in-out  md:pt-0"
 >
   <div class="flex justify-between items-end">
     <!-- TITLE -->
-    <div class="p-4 mt-12  flex items-end">
+    <div class="p-4 mt-12 flex items-end">
       <a
         id="site-title"
-        class="z-[999] pl-2 mt-6 pr-8 pt-8 pb-2 text-black text-3xl fixed transition-colors duration-3000 ease-in-out hover:animate-pulse hover:text-pink-500"
+        class="z-[999] pl-2 mt-1 pr-8 pt-8 pb-2 text-black text-3xl fixed transition-colors duration-3000 ease-in-out hover:animate-pulse hover:text-pink-500"
         href="/"
       >
         {SITE_TITLE}
@@ -25,14 +25,14 @@ const { activePage = '' } = Astro.props;
       <a
       class={activePage == 'exps'
         ? 'hidden'
-        : 'pl-2 mt-6 pr-8 pt-8 pb-2 hover:animate-pulse bg-opacity-50 text-black hover:text-pink-500 hover:underline opacity-100 duration-3000 pointer-events-auto cursor-pointer text-xl'
+        : 'pl-2 mt-1 pr-8 pt-8 pb-2 hover:animate-pulse bg-opacity-50 text-black hover:text-pink-500 hover:underline opacity-100 duration-3000 pointer-events-auto cursor-pointer text-xl'
       }
         href="/exps"
       > exps
       </a>
 
       <a
-        class="pl-2 mt-6 pr-8 pt-8 pb-2 hover:animate-pulse bg-opacity-50 text-black hover:text-pink-500 hover:underline opacity-100 duration-3000 pointer-events-auto cursor-pointer text-xl"
+        class="pl-2 mt-1 pr-8 pt-8 pb-2 hover:animate-pulse bg-opacity-50 text-black hover:text-pink-500 hover:underline opacity-100 duration-3000 pointer-events-auto cursor-pointer text-xl"
         href="/">about</a
       >
     </div>
