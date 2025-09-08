@@ -3,54 +3,113 @@ import { SITE_TITLE } from "../consts";
 const { activePage = '' } = Astro.props;
 ---
 
-<div class="bg-white w-screen fixed z-[99] shadow-lg shadow-white pt-12 md:pt-0 ">
-
-<navbar
-  class="w-full transition-colors duration-300 ease-in-out  md:pt-0"
->
-  <div class="flex justify-between items-end">
+<div class="bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32">
+  <navbar class="w-full ">
+    
     <!-- TITLE -->
-    <div class="p-4 mt-12 flex items-end">
+    <div class="p-4 flex items-start">
       <a
         id="site-title"
-        class="z-[999] pl-2 mt-1 pr-8 pt-8 pb-2 text-black text-3xl fixed transition-colors duration-3000 ease-in-out hover:animate-pulse hover:text-pink-500"
+        class="z-[999] text-black text-3xl transition-colors duration-300 ease-in-out hover:animate-pulse hover:text-pink-500 pr-4 pl-2 py-2"
         href="/"
       >
         {SITE_TITLE}
       </a>
     </div>
 
-    <!-- MENU -->
-    <div class="p-4 flex items-end space-x-4">
+    <!-- MENU (inizialmente nascosto) -->
+    <div
+      id="menu"
+      class="overflow-hidden max-h-0 opacity-0 flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 px-6 transition-all duration-500 ease-in-out"
+    >
       <a
-      class={activePage == 'exps'
-        ? 'hidden'
-        : 'pl-2 mt-1 pr-8 pt-8 pb-2 hover:animate-pulse bg-opacity-50 text-black hover:text-pink-500 hover:underline opacity-100 duration-3000 pointer-events-auto cursor-pointer text-xl'
-      }
+        class={activePage == 'exps'
+          ? 'hidden'
+          : 'opacity-0 translate-y-2 transition-all duration-500 ease-in-out delay-150 text-black hover:text-pink-500 hover:underline text-xl'
+        }
         href="/exps"
-      > exps
+      >
+        exps
       </a>
 
       <a
-        class="pl-2 mt-1 pr-8 pt-8 pb-2 hover:animate-pulse bg-opacity-50 text-black hover:text-pink-500 hover:underline opacity-100 duration-3000 pointer-events-auto cursor-pointer text-xl"
-        href="/">about</a
+        class="opacity-0 translate-y-2 transition-all duration-500 ease-in-out delay-300 text-black hover:text-pink-500 hover:underline text-xl"
+        href="/"
       >
+        about
+      </a>
     </div>
-  </div>
-</navbar>
 
+  </navbar>
 </div>
-<!-- Script per gestire lo scroll -->
+
+<!-- Script scroll -->
 <script>
+  const menu = document.getElementById("menu");
+  const menuLinks = menu.querySelectorAll("a");
   const title = document.getElementById("site-title");
 
+  let lastScrollY = window.scrollY;
+  let hideTimeout;
+
+  function showMenu() {
+    menu.classList.remove("max-h-0", "opacity-0");
+    menu.classList.add("max-h-40", "opacity-100");
+
+    menuLinks.forEach((link, i) => {
+      setTimeout(() => {
+        link.classList.remove("opacity-0", "translate-y-2");
+        link.classList.add("opacity-100", "translate-y-0");
+      }, i * 150);
+    });
+  }
+
+  function hideMenu() {
+    menu.classList.remove("max-h-40", "opacity-100");
+    menu.classList.add("max-h-0", "opacity-0");
+
+    menuLinks.forEach((link) => {
+      link.classList.add("opacity-0", "translate-y-2");
+      link.classList.remove("opacity-100", "translate-y-0");
+    });
+  }
+
   function handleScroll() {
-    if (window.scrollY > 50) {
-      title.classList.add("bg-black", "text-white", "px-4");
-    } else {
-      title.classList.remove("bg-black", "text-white", "px-4");
+    clearTimeout(hideTimeout);
+
+    if (window.scrollY === 0) {
+      // In cima: menu sempre visibile, niente auto-hide
+      showMenu();
+      return;
     }
+
+    if (window.scrollY > lastScrollY) {
+      // Scroll verso il basso
+      hideMenu();
+    } else {
+      // Scroll verso l’alto
+      showMenu();
+
+      // Nascondo di nuovo dopo 3s
+      hideTimeout = setTimeout(() => {
+        hideMenu();
+      }, 3000);
+    }
+
+    // Effetto quadrato nero sul title
+    if (window.scrollY > 50) {
+      title.classList.add("bg-black", "text-white", "shadow-md");
+    } else {
+      title.classList.remove("bg-black", "text-white", "shadow-md");
+    }
+
+    lastScrollY = window.scrollY;
   }
 
   window.addEventListener("scroll", handleScroll);
+
+  // Mostra menu subito se sei in cima quando carica la pagina
+  if (window.scrollY === 0) {
+    showMenu();
+  }
 </script>

@@ -14,8 +14,15 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+
+import Footer from '../../components/Footer.astro';
 ---
 
 <ExpLayout {...post.data}>
 	<Content />
 </ExpLayout>
+
+<div class="bg-white mt-32">
+    <Footer mode="focusexp" />
+  </div>

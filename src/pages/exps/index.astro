@@ -2,10 +2,8 @@
 
 import ExpsLayout from '../../layouts/ExpsLayout.astro';
 
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
@@ -19,11 +17,15 @@ const posts = (await getCollection('blog')).sort(
 const years = [...new Set(posts.map((p) => new Date(p.data.pubDate).getFullYear()))].sort((a, b) => b - a);
 
 const activePage='exps';
+
+import Footer from '../../components/Footer.astro';
+const mode='exps';
+
 ---
 
-<ExpsLayout {activePage}>
+<ExpsLayout {activePage} {mode}>
 
-	<main class="min-h-screen pt-42 md:pt-32">
+	<main class="min-h-screen pt-42 md:pt-32 mx-2 lg:mx-28">
     <section class="md:p-6">
       <h2 class="text-3xl bg-green-500 py-3 pl-1 pr-3 md:p-3 text-black inline-block">
         Experiences
@@ -33,7 +35,7 @@ const activePage='exps';
         {years.map((year) => (
           <button 
             data-year={year} 
-            class="filter-btn pl-1 pr-1 md:px-3 py-1 rounded hover:bg-black hover:text-cyan-500 transition-colors duration-300 cursor-pointer text-2xl"
+            class="filter-btn pl-1 pr-1 md:px-3 py-1 hover:bg-black hover:text-cyan-500 transition-colors duration-300 cursor-pointer text-2xl"
           >
             {year}
           </button>
@@ -41,7 +43,7 @@ const activePage='exps';
       </div>
       
       <div class="flex justify-start #text-[150px] #-mb-32 #-mt-32 #ml-12 py-2">
-        <p class="#rotate-90 origin-center inline-block">
+        <p class="#rotate-90 origin-center inline-block text-4xl text-gray-500">
           [
         </p>
       </div>
@@ -111,40 +113,44 @@ const activePage='exps';
         })}
       </ul>
       <div class="flex justify-start #text-[150px] #-mb-32 #-mt-32 #ml-12 py-2">
-        <p class="#rotate-90 origin-center inline-block">
+        <p class="#rotate-90 origin-center inline-block text-4xl text-gray-500">
           ]
         </p>
       </div>
       
     </section>
   </main>
+  
+  <div class="bg-white mt-24">
+    <Footer mode="exps" />
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".filter-btn");
-  const posts = document.querySelectorAll(".post-item");
+    const buttons = document.querySelectorAll(".filter-btn");
+    const posts = document.querySelectorAll(".post-item");
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const year = btn.getAttribute("data-year");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const year = btn.getAttribute("data-year");
 
-      // Rimuove la classe active da tutti i pulsanti
-      buttons.forEach(b => b.classList.remove("bg-black", "text-orange-500"));
+        // Rimuove la classe active da tutti i pulsanti
+        buttons.forEach(b => b.classList.remove("bg-black", "text-orange-500"));
 
-      // Aggiunge classe active al pulsante cliccato
-      btn.classList.add("bg-black", "text-orange-500");
+        // Aggiunge classe active al pulsante cliccato
+        btn.classList.add("bg-black", "text-orange-500");
 
-      // Filtra i post
-      posts.forEach((post) => {
-        if (year === "all" || post.getAttribute("data-year") === year) {
-          post.style.display = "";
-        } else {
-          post.style.display = "none";
-        }
+        // Filtra i post
+        posts.forEach((post) => {
+          if (year === "all" || post.getAttribute("data-year") === year) {
+            post.style.display = "";
+          } else {
+            post.style.display = "none";
+          }
+        });
       });
     });
   });
-});
 
   </script>
   

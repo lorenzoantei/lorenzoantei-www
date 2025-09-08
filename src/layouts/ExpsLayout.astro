@@ -9,7 +9,6 @@ const { activePage = '' } = Astro.props;
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
-import Footer from '../components/Footer.astro';
 
 ---
 
@@ -25,12 +24,6 @@ import Footer from '../components/Footer.astro';
 		<main class="p-3">
 
             <slot />
-
-			<div class="md:px-8">
-				<div class="pt-24 pb-8 md:pt-36 md:pb-12">
-					<Footer />
-				</div>
-			</div>
 
         </main>
 				

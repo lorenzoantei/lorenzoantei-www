@@ -1,0 +1,17 @@
+---
+export interface Props {
+  src: string;
+  alt: string;
+  containerClass?: string;
+}
+
+const { 
+    src, 
+    alt, 
+    containerClass = "shadow-2xl/50 shadow-black mb-36 md:mb-24 w-full md:max-w-2/3 mx-auto" 
+} = Astro.props;
+---
+
+<div class={containerClass}>
+    <img src={src} alt={alt} class="w-full h-auto object-contain" />
+</div>
