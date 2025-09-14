@@ -1,16 +1,16 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
-import AboutLayout from '../layouts/AboutLayout.astro';
+import AboutLayout from '../../layouts/AboutLayout.astro';
 
-import Hero from '../components/Hero.astro';
-import Bio from '../components/Bio.astro';
-import HydraFrame from '../components/HydraFrame.astro';
-import LatestExps from '../components/LatestExps.astro';
+import Hero from '../../components/Hero.astro';
+import Bio from '../../components/Bio.astro';
+import HydraFrame from '../../components/HydraFrame.astro';
+import LatestExps from '../../components/LatestExps.astro';
 
-import Footer from '../components/Footer.astro';
+import Footer from '../../components/Footer.astro';
 
-import { getTranslations, getLocale } from '../utils/i18n.js';
+import { getTranslations, getLocale } from '../../utils/i18n.js';
 
 const t = getTranslations(Astro.url.pathname);
 const locale = getLocale(Astro.url.pathname);

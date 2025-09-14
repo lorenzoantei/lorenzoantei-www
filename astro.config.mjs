@@ -6,12 +6,12 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://lorenzoantei.it",
-  output: "server",            // richiesto per i18n
+  output: "static",
   i18n: {
     locales: ["en", "it"],
     defaultLocale: "en",
     routing: {
-      prefixDefaultLocale: false // L’inglese non avrà /en/ nel percorso
+      prefixDefaultLocale: true
     }
   },
   integrations: [
@@ -23,6 +23,9 @@ export default defineConfig({
     }), 
     sitemap()
   ],
+  redirects: {
+    "/": "/en",
+  },
 
   vite: {
     plugins: [tailwindcss()],
