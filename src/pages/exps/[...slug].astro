@@ -17,9 +17,12 @@ const { Content } = await render(post);
 
 
 import Footer from '../../components/Footer.astro';
+
+const activePage='exp';
+
 ---
 
-<ExpLayout {...post.data}>
+<ExpLayout {activePage} {...post.data} >
 	<Content />
 </ExpLayout>
 

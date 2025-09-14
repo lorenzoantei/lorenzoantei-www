@@ -3,7 +3,9 @@ import FormattedDate from "../components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-const exps = (await getCollection("blog"))
+const exps = (await getCollection('blog'))
+  .filter((exp) => exp.data.published === true)
+  .filter((exp) => exp.data.tags.includes("home"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 5);
 
@@ -55,32 +57,34 @@ const getRandomTransform = () => {
         <div class="py-3">[</div>
 
         {
-          exps.map((post, index) => {
+          exps.map((exp, index) => {
             const colorClass = getNextColor();
             const transformClass = getRandomTransform();
 
             return (
-              <li key={post.id} class="hover:animate-pulse hover:text-black">
-                <a href={`/exps/${post.id}/`}>
-                  <div
-                    class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-500 ease-in-out hover:scale-[1.08] hover:hover-weird-blip ${colorClass} ${transformClass}`}
-                  >
-                    <div class="pl-2">{"{"}</div>
+            <li key={exp.id} class="text-gray-500">
+              <a href={`/exps/${exp.id}/`}>
+                <div
+                  class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out hover:scale-[1.08] hover:animate-pulse ${colorClass} ${transformClass}`}
+                >
+                  <div class="pl-2 group-hover:text-black">{"{"}</div>
 
-                    <div class="pl-4 text-4xl">"title": "{post.data.title}",</div>
-
-                    <div class="pl-4">
-                      "date": "<FormattedDate date={post.data.pubDate} />
-                      ",
-                    </div>
-
-                    <div class="pl-2">
-                      {"}"}
-                      {index < exps.length - 1 ? "," : ""}
-                    </div>
+                  <div class="pl-4 text-4xl group-hover:text-black">
+                    "title": "<span class="group-hover:text-black group-hover:underline text-white">{exp.data.title}</span>",
                   </div>
-                </a>
-              </li>
+
+                  <div class="pl-4 group-hover:text-black">
+                    "date": "<FormattedDate date={exp.data.pubDate} />",
+                  </div>
+
+                  <div class="pl-2 group-hover:text-black">
+                    {"}"}
+                    {index < exps.length - 1 ? "," : ""}
+                  </div>
+                </div>
+              </a>
+            </li>
+
             );
           })
         }

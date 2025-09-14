@@ -88,3 +88,15 @@
     }
   }
 
+  @keyframes bg-rotate {
+    0%   { background-color: #22c55e; } /* green-500 */
+    25%  { background-color: #facc15; } /* yellow-400 */
+    50%  { background-color: #3b82f6; } /* blue-500 */
+    75%  { background-color: #ec4899; } /* pink-500 */
+    100% { background-color: #22c55e; } /* green-500 */
+  }
+
+  .animate-bg-rotate {
+    animation: bg-rotate 5s linear infinite;
+  }
+

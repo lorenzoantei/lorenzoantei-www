@@ -7,8 +7,10 @@ import BaseHead from '../components/BaseHead.astro';
 import ExpsNavbar from '../components/ExpsNavbar.astro';
 const { activePage = '' } = Astro.props;
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { description, pubDate, updatedDate, heroImage } = Astro.props;
+const title = "EXPs ~ Lorenzo Antei";
 
+import Footer from '../components/Footer.astro';
 
 ---
 
@@ -26,6 +28,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             <slot />
 
         </main>
+
+		<div class="bg-white mt-24">
+			<Footer mode="exps" />
+		</div>
 				
 	</body>
 </html>
