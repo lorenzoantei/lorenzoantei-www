@@ -1,4 +1,11 @@
 {
     "heroTitle": "Benvenuto nel mio sito",
-    "bioText": "Sono un artista specializzato in new media."
+    "bioText": "Sono un artista specializzato in new media.",
+    "hello": "Ciao!",
+    "iam": "sono",
+    "bioshort": "Sono un computer artist. Faccio bizzarre sessioni di live coding con strani strumenti basati su Arduino dalla dubbia utilità. Quando non brucio microcontrollori, sbarco il lunario come full stack web developer e video editor.",
+    "more": "Di più",
+    "bio1": "Sono un computer artist.",
+    "bio2": "La  scintilla si è accesa per la prima volta negli spazi vuoti durante l’Università. La fotografia digitale è diventata il mio modo di rallentare il tempo — camminare a piedi nudi attraverso la realtà, coglierne le crepe, i riflessi, gli sguardi fugaci. Mentre si stava radicando, apriva al contempo dei portali. Quel rapporto ha acceso in me il bisogno di andare più a fondo. Ho portato con me quella curiosità fino all’accademia, dove ha trovato spazio per crescere.",
+    "bio3": ""
 }

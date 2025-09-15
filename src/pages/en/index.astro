@@ -10,14 +10,7 @@ import LatestExps from '../../components/LatestExps.astro';
 
 import Footer from '../../components/Footer.astro';
 
-import { getTranslations, getLocale } from '../../utils/i18n.js';
-
-const t = getTranslations(Astro.url.pathname);
-const locale = getLocale(Astro.url.pathname);
-
 ---
-
-{t.heroTitle}
 
 <AboutLayout>
 	<main class="mx-3 md:mx-24">
