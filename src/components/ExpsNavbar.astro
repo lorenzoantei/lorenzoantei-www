@@ -12,21 +12,41 @@ const exps = (await getCollection('blog'))
 // Ottieni anni unici
 const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()))].sort((a, b) => b - a);
 
+import { getTranslations, getLocale } from '../utils/i18n.js';
+
+const t = getTranslations(Astro.url.pathname);
+const locale = getLocale(Astro.url.pathname);
+
+// calcola la lingua opposta
+const opposite = locale === "it" ? "en" : "it";
+// costruisci la nuova URL sostituendo solo il prefisso
+const currentPath = Astro.url.pathname;
+// rimpiazza /it/ o /en/ con /opposite/
+const newPath = currentPath.replace(/^\/(it|en)/, `/${opposite}`);
 ---
 
 <div class="bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32">
   <navbar class="w-full">
     
     <!-- TITLE -->
-    <div class="p-4 flex items-start">
-      <a
-        id="site-title"
-        class="z-[999] text-black text-3xl transition-colors duration-300 ease-in-out hover:animate-pulse hover:text-pink-500 pr-4 pl-2 py-2"
-        href="/"
-      >
-        {SITE_TITLE}
+    <div class="flex justify-between">
+      <div class="p-4 flex items-start">
+        <a
+          id="site-title"
+          class="z-[999] text-black text-3xl transition-colors duration-300 ease-in-out hover:animate-pulse hover:text-pink-500 pr-4 pl-2 py-2"
+          href={`/${locale}/`}
+          
+        >
+          {SITE_TITLE}
+        </a>
+
+      </div>
+    <div class="mt-10 md:mt-9">
+      <a href={newPath} class="text-md md:text-lg pl-1 mr-2 md:mr-0 pr-2 md:pt-5 pt-6 pb-1 bg-red-500 bg-opacity-50 text-white opacity-100 duration-3000 hover:underline hover:animate-pulse"> {opposite.toUpperCase()}
       </a>
     </div>
+
+  </div>
 
     <!-- MENU (inizialmente nascosto) -->
     <div
@@ -40,7 +60,7 @@ const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()
         }
         href="/exps"
       >
-        exps
+        {t.exps}
       </a>
 
       <a
@@ -48,9 +68,9 @@ const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()
           ? 'opacity-0 translate-y-2 transition-all duration-500 ease-in-out delay-300 text-black hover:text-pink-500 hover:underline text-xl'
           : 'mb-3 opacity-0 translate-y-2 transition-all duration-500 ease-in-out delay-300 text-black hover:text-pink-500 hover:underline text-xl '
         }
-        href="/"
+        href={`/${locale}/`}
       >
-        about
+        {t.about}
       </a>
     </div>
 
@@ -62,7 +82,7 @@ const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()
     >
 
       <h2 class="text-3xl text-black py-3 pl-1 pr-3 md:p-3 md:pl-2 inline-block animate-bg-rotate animate-pulse">
-        Experiences
+        {t.experiences}
       </h2>
       
       <!-- Pulsanti Anni -->

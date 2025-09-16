@@ -5,10 +5,22 @@ import { getTranslations, getLocale } from '../utils/i18n.js';
 const t = getTranslations(Astro.url.pathname);
 const locale = getLocale(Astro.url.pathname);
 
+// calcola la lingua opposta
+const opposite = locale === "it" ? "en" : "it";
+
+// costruisci la nuova URL sostituendo solo il prefisso
+const currentPath = Astro.url.pathname;
+// rimpiazza /it/ o /en/ con /opposite/
+const newPath = currentPath.replace(/^\/(it|en)/, `/${opposite}`);
 ---
   <div class="my-24 md:my-12 2xl:my-24 h-auto text-7xl 2xl:text-4xl">
-    <h2 class="2xl:text-[100px] font-bold">{t.hello}</h2>
-
+    <div class="flex justify-between">
+      <h2 class="2xl:text-[100px] font-bold">{t.hello}</h2>
+      <div>
+        <a href={newPath} class="text-2xl md:text-lg pl-1 pr-4 pt-4 pb-1 bg-red-500 bg-opacity-50 text-white opacity-100 duration-3000 hover:underline hover:animate-pulse"> {opposite.toUpperCase()}
+        </a>
+      </div>
+    </div>
     <h1 class="font-bold flex flex-col 2xl:flex-row text-7xl 2xl:text-[90px]">
       <span class="pt-6 2xl:pt-0">{t.iam}</span>
 

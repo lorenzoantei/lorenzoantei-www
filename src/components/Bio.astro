@@ -33,41 +33,12 @@ const locale = getLocale(Astro.url.pathname);
               creative programming. -->
               {t.bio1}
             </p>
-            <p>
-              {t.bio2}
-            </p>
-            <p>
-              I graduated in Net Art and Digital Cultures from the Accademia di
-              Belle Arti di Carrara with the thesis <i
-                >Catturare l'effimero - L’archivio come azione artivista - verso
-                un’estetica dell’effimero</i
-              > (2025).
-            </p>
-
-            <p>
-              I’ve taken part in numerous exhibitions, both in physical spaces
-              and across the ether, pursuing a research path that blends irony,
-              hacking, and critical intervention. I’ve created animatronics for
-              theatrical performances, joined live coding nights with highly
-              questionable Arduino-based hardware, and developed audiovisual
-              experiences on the edge between performance and crash.
-            </p>
-
-            <p>
-              Alongside my practice, I collaborate with international entities
-              such as Songlines Production, Omava Production and Lucca Crea
-              (Lucca Comics & Games), handling media management and video
-              editing for various projects... By day, I work as a full stack web
-              developer at Quivi, building custom web applications.
-            </p>
-
-            <p>
-              I approach life as a constant flow, where the only certainty is
-              the process of creating, evolving, and breaking things down to
-              rebuild them again.
-              <span class="glitchy delay-1">Again.</span>
-              <span class="glitchy delay-2">And again.</span>
-            </p>
+            <p set:html={t.bio2}></p>
+            <p set:html={t.bio3}></p>
+            <p set:html={t.bio4}></p>
+            <p set:html={t.bio5}></p>
+            <p set:html={t.bio6}></p>
+            
           </div>
 
           <div

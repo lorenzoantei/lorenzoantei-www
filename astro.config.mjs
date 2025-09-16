@@ -17,7 +17,6 @@ export default defineConfig({
   integrations: [
     mdx({
       components: {
-        // Importa il component Swiper
         Swiper: './src/components/Swiper.astro',
       },
     }), 

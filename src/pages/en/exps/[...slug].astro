@@ -1,0 +1,31 @@
+---
+import ExpLayout from '../../../layouts/ExpLayout.astro';
+
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+
+import Footer from '../../../components/Footer.astro';
+
+const activePage='exp';
+
+---
+
+<ExpLayout {activePage} {...post.data} >
+	<Content />
+</ExpLayout>
+
+<div class="bg-white mt-32">
+    <Footer mode="focusexp" />
+</div>

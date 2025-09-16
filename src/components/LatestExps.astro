@@ -1,6 +1,6 @@
 ---
 import FormattedDate from "../components/FormattedDate.astro";
-import { Image } from "astro:assets";
+
 import { getCollection } from "astro:content";
 
 const exps = (await getCollection('blog'))
@@ -45,13 +45,18 @@ const getRandomTransform = () => {
   const rot = Math.floor(Math.random() * 5) - 2;
   return `translate-x-[${tx}px] translate-y-[${ty}px] rotate-[${rot}deg]`;
 };
+
+import { getTranslations, getLocale } from '../utils/i18n.js';
+
+const t = getTranslations(Astro.url.pathname);
+const locale = getLocale(Astro.url.pathname);
 ---
 
 <section class="text-white min-h-screen">
   <div class="p-3 md:p-24 bg-black pb-12">
     <h3 class="mb-8">
-      <span class="text-3xl bg-white p-3 text-black inline-block">
-        Latest experiences
+      <span class="text-3xl bg-white pl-1 pr-3 py-3 text-black inline-block">
+        {t.latestexperiences}
       </span>
       <ul>
         <div class="py-3">[</div>
@@ -70,11 +75,11 @@ const getRandomTransform = () => {
                   <div class="pl-2 group-hover:text-black">{"{"}</div>
 
                   <div class="pl-4 text-4xl group-hover:text-black">
-                    "title": "<span class="group-hover:text-black group-hover:underline text-white">{exp.data.title}</span>",
+                    "{t.title}": "<span class="group-hover:text-black group-hover:underline text-white">{exp.data.title}</span>",
                   </div>
 
                   <div class="pl-4 group-hover:text-black">
-                    "date": "<FormattedDate date={exp.data.pubDate} />",
+                    "{t.date}": "<FormattedDate date={exp.data.pubDate} />",
                   </div>
 
                   <div class="pl-2 group-hover:text-black">
@@ -95,9 +100,9 @@ const getRandomTransform = () => {
       <div class="py-12">
         <a
           class="text-2xl pl-1 mt-6 pr-8 pt-8 pb-1 bg-pink-500 hover:animate-pulse bg-opacity-50 text-white opacity-100 duration-3000 pointer-events-auto cursor-pointer"
-          href="/exps"
+          href={`/${locale}/exps`}
         >
-          More...
+          {t.more}...
         </a>
       </div>
     </h3>

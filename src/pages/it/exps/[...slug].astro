@@ -1,5 +1,5 @@
 ---
-import ExpLayout from '../../layouts/ExpLayout.astro';
+import ExpLayout from '../../../layouts/ExpLayout.astro';
 
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 
@@ -16,7 +16,7 @@ const post = Astro.props;
 const { Content } = await render(post);
 
 
-import Footer from '../../components/Footer.astro';
+import Footer from '../../../components/Footer.astro';
 
 const activePage='exp';
 

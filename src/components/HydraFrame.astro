@@ -1,13 +1,13 @@
 ---
-// Props
 const { src, title = "Hydra Sketch" } = Astro.props;
 ---
 
 <div class="h-full flex justify-center">
   <iframe
-    class="w-full h-[50rem] border-none"
+    class="w-full h-[50rem] border-none opacity-0 transition-opacity duration-3000 ease-in"
     src={src}
     title={title}
     allowfullscreen
+    onload="this.classList.remove('opacity-0')"
   ></iframe>
 </div>
