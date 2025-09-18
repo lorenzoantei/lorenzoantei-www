@@ -77,7 +77,13 @@ const locale = getLocale(Astro.url.pathname);
             const transformClass = getRandomTransform();
         
             return (
-              <li data-year={year} class="exp-item hover:animate-pulse duration-3000 md:border-0">
+              <li data-year={year} class="
+                exp-item 
+                hover:animate-pulse 
+                animate-fade-in-out
+                duration-3000 
+                md:border-0"
+              >
                 <a href={`/${locale}/exps/${exp.id}/`}>
                   <div
                     class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-500 ease-in-out hover:scale-[1.08] hover:hover-weird-blip ${colorClass} ${transformClass}`}

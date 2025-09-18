@@ -100,3 +100,8 @@
     animation: bg-rotate 5s linear infinite;
   }
 
+  .animate-bg-rotate:hover {
+    animation-play-state: paused;
+    transition: background-color 0.5s ease-in-out;
+  }
+
