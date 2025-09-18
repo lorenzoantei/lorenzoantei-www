@@ -2,26 +2,34 @@
 import { SITE_TITLE } from "../consts";
 const { activePage = '' } = Astro.props;
 import { getCollection } from 'astro:content';
+import { getTranslations, getLocale } from '../utils/i18n.js';
+
+const locale = getLocale(Astro.url.pathname);
+
+// mappa locale -> collezione
+const collectionsMap = {
+  en: 'expsEnList',
+  it: 'expsItList',
+};
+
+// fallback nel caso in cui locale non sia trovato
+const collectionName = collectionsMap[locale] ?? 'expsEnList';
 
 // Recupera tutti i exp ordinati per data
-const exps = (await getCollection('blog'))
+const exps = (await getCollection(collectionName))
   .filter((exp) => exp.data.published === true)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-
 // Ottieni anni unici
-const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()))].sort((a, b) => b - a);
-
-import { getTranslations, getLocale } from '../utils/i18n.js';
+const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()))]
+  .sort((a, b) => b - a);
 
 const t = getTranslations(Astro.url.pathname);
-const locale = getLocale(Astro.url.pathname);
 
 // calcola la lingua opposta
 const opposite = locale === "it" ? "en" : "it";
 // costruisci la nuova URL sostituendo solo il prefisso
 const currentPath = Astro.url.pathname;
-// rimpiazza /it/ o /en/ con /opposite/
 const newPath = currentPath.replace(/^\/(it|en)/, `/${opposite}`);
 ---
 
@@ -58,7 +66,7 @@ const newPath = currentPath.replace(/^\/(it|en)/, `/${opposite}`);
           ? 'hidden'
           : 'opacity-0 translate-y-2 transition-all duration-500 ease-in-out delay-150 text-black hover:text-pink-500 hover:underline text-xl'
         }
-        href="/exps"
+        href={`/${locale}/exps`}
       >
         {t.exps}
       </a>

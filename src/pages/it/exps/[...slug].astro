@@ -4,13 +4,13 @@ import ExpLayout from '../../../layouts/ExpLayout.astro';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
+	const exps = await getCollection('expsItList');
+	return exps.map((post) => ({
 		params: { slug: post.id },
 		props: post,
 	}));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<'expsItList'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
@@ -28,4 +28,4 @@ const activePage='exp';
 
 <div class="bg-white mt-32">
     <Footer mode="focusexp" />
-  </div>
+</div>

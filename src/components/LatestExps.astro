@@ -2,12 +2,26 @@
 import FormattedDate from "../components/FormattedDate.astro";
 
 import { getCollection } from "astro:content";
+import { getTranslations, getLocale } from '../utils/i18n.js';
 
-const exps = (await getCollection('blog'))
+const locale = getLocale(Astro.url.pathname);
+
+// mappa locale -> collezione
+const collectionsMap = {
+  en: 'expsEnList',
+  it: 'expsItList',
+};
+
+// fallback nel caso in cui locale non sia trovato
+const collectionName = collectionsMap[locale] ?? 'expsEnList';
+
+const exps = (await getCollection(collectionName))
   .filter((exp) => exp.data.published === true)
   .filter((exp) => exp.data.tags.includes("home"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 5);
+
+  console.log(exps);
 
 const bgColors = [
   "hover:bg-pink-500",
@@ -46,10 +60,7 @@ const getRandomTransform = () => {
   return `translate-x-[${tx}px] translate-y-[${ty}px] rotate-[${rot}deg]`;
 };
 
-import { getTranslations, getLocale } from '../utils/i18n.js';
-
 const t = getTranslations(Astro.url.pathname);
-const locale = getLocale(Astro.url.pathname);
 ---
 
 <section class="text-white min-h-screen">
@@ -68,7 +79,7 @@ const locale = getLocale(Astro.url.pathname);
 
             return (
             <li key={exp.id} class="text-gray-500">
-              <a href={`/exps/${exp.id}/`}>
+              <a href={`/${locale}/exps/${exp.id}/`}>
                 <div
                   class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out hover:scale-[1.08] hover:animate-pulse ${colorClass} ${transformClass}`}
                 >
@@ -105,6 +116,7 @@ const locale = getLocale(Astro.url.pathname);
           {t.more}...
         </a>
       </div>
+      
     </h3>
   </div>
 </section>

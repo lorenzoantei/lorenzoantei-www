@@ -7,10 +7,9 @@ import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
 
 // Recupera tutti i exp ordinati per data
-const exps = (await getCollection('blog'))
+const exps = (await getCollection('expsItList'))
   .filter((exp) => exp.data.published === true)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
 
 const activePage='exps';
 
@@ -79,7 +78,7 @@ const locale = getLocale(Astro.url.pathname);
         
             return (
               <li data-year={year} class="exp-item hover:animate-pulse duration-3000 md:border-0">
-                <a href={`/exps/${exp.id}/`}>
+                <a href={`/${locale}/exps/${exp.id}/`}>
                   <div
                     class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-500 ease-in-out hover:scale-[1.08] hover:hover-weird-blip ${colorClass} ${transformClass}`}
                   >
