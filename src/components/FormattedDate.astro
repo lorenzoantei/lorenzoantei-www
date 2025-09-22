@@ -4,11 +4,17 @@ interface Props {
 }
 
 const { date } = Astro.props;
+
+import { getTranslations, getLocale } from '../utils/i18n.js';
+
+const locale = getLocale(Astro.url.pathname);
+
+const localeDate = locale === "it" ? "it" : "en-us";
 ---
 
 <time datetime={date.toISOString()}>
 	{
-		date.toLocaleDateString('en-us', {
+		date.toLocaleDateString(localeDate, {
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',

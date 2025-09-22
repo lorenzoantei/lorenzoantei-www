@@ -1,0 +1,17 @@
+---
+    export interface Props {
+  [key: string]: unknown;
+}
+const { ...props } = Astro.props;
+---
+
+
+
+<div class="flex justify-center">
+    <div class="max-w-[1000px]">
+        <p {...props} class={props.class ?? ''}>
+            <slot />
+          </p>
+          
+    </div>
+  </div>

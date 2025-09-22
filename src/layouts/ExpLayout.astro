@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import BaseHead from '../components/BaseHead.astro';
 
 import ExpsNavbar from '../components/ExpsNavbar.astro';
@@ -22,7 +22,7 @@ const { years = [], posts = [] } = Astro.props;
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={`${title} ~ ${SITE_TITLE}`} description={description} />
 	</head>
 
 	<body class="">
