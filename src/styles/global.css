@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "@fontsource-variable/pixelify-sans";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-pixelify: 'Pixelify Sans Variable', system-ui;
+}
 
 @keyframes weird-blip {
     0% {
