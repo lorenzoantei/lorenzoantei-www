@@ -59,9 +59,11 @@ const swiperOptions = {
   }
   
   img {
-  max-width: 70%; /* oppure var(--maxWidth) se vuoi usare la variabile */
-  max-height: 70%;
-  margin: auto; /* centra l’immagine nello slide */
+  /* 90 % della larghezza della viewport, ma non più di 100 % del contenitore */
+  width: 90vw;
+  max-width: 1000px;
+  height: auto;               /* mantiene il rapporto d’aspetto originale */
+  margin: auto;
   display: block;
   object-fit: contain;
   object-position: center;
