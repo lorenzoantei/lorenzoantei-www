@@ -5,6 +5,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import BaseHead from '../components/BaseHead.astro';
 
 import ExpsNavbar from '../components/ExpsNavbar.astro';
+
+import Cookiebot from '../components/Cookiebot.astro';
+
 const { activePage = '' } = Astro.props;
 
 const { description, pubDate, updatedDate, heroImage } = Astro.props;
@@ -17,6 +20,7 @@ import Footer from '../components/Footer.astro';
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
+		<Cookiebot />
 	</head>
 
 	<body class="">

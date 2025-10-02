@@ -2,6 +2,7 @@
 import "../styles/global.css";
 
 import BaseHead from '../components/BaseHead.astro';
+import Cookiebot from '../components/Cookiebot.astro';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
@@ -13,6 +14,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+
+		<Cookiebot />
 	</head>
 
 	<body>
