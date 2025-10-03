@@ -1,20 +1,11 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
-
 import AboutLayout from '../../layouts/AboutLayout.astro';
 
 import Hero from '../../components/Hero.astro';
 import Bio from '../../components/Bio.astro';
 import HydraFrame from '../../components/HydraFrame.astro';
-import LatestExps from '../../components/LatestExps.astro';
-
+import Exps from '../../components/Exps.astro';
 import Footer from '../../components/Footer.astro';
-
-import { getTranslations, getLocale } from '../../utils/i18n.js';
-
-const t = getTranslations(Astro.url.pathname);
-const locale = getLocale(Astro.url.pathname);
-
 ---
 
 <AboutLayout>
@@ -29,12 +20,70 @@ const locale = getLocale(Astro.url.pathname);
 				title="cubotic waves"
 				src="https://hydra.ojack.xyz/?code=b3NjKDElMkMlMjAwLjUlMkMlMjAwLjAwMSklMEElMjAlMjAlMjAlMjAua2FsZWlkKCU1QjMlMkM0JTJDNSUyQzclMkM4JTJDOSUyQzEwJTVELmZhc3QoMC4wMSkpJTBBJTIwJTIwJTIwJTIwLmNvbG9yKDAuNyUyQyUyMDAuMyklMEElMjAlMjAlMjAlMjAuY29sb3JhbWEoLjEpJTBBJTIwJTIwLmRpZmYoZ3JhZGllbnQoLjMpKSUwQSUyMCUyMC5hZGQoc2hhcGUoMiUyQzIpLmJsZW5kKGdyYWRpZW50KDEpKSklMEElMjAlMjAubW9kdWxhdGUobm9pc2UoKSklMEElMjAlMjAlMjAlMjAucm90YXRlKDIlMkMoKSUzRCUzRU1hdGguc2luKHRpbWUpKiUyMC0wLjAwMDElMjApJTBBJTIwJTIwJTIwJTIwLm1vZHVsYXRlUm90YXRlKG8wJTJDKCklM0QlM0VNYXRoLnNpbih0aW1lKSUyMColMjAwLjAwMDEpJTBBJTIwJTIwJTIwJTIwLm1vZHVsYXRlKG8wJTJDJTIwMC45KSUwQSUyMCUyMCUyMCUyMC5zY2FsZSguNSklMEElMjAlMjAlMjAlMjAub3V0KG8wKQ%3D%3D"
 			/>
-	
-			<LatestExps />
-	
-		</div>
+
+	<div class="pt-60 md:pt-42 mx-2 lg:mx-28">
 		
-	</main>
+		<Exps />
+
+	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const buttons = document.querySelectorAll(".filter-btn");
+			const exps = document.querySelectorAll(".exp-item");
+			const expsList = document.getElementById("exps-list");
+
+			expsList.style.transition = "max-height 0.6s ease-in-out, opacity 0.6s ease-in-out";
+			expsList.style.overflow = "hidden";
+
+			buttons.forEach((btn) => {
+				btn.addEventListener("click", () => {
+					const year = btn.getAttribute("data-year");
+
+					buttons.forEach(b => b.classList.remove("bg-black", "text-orange-500"));
+					btn.classList.add("bg-black", "text-orange-500");
+
+					// Altezza attuale → punto di partenza
+					const currentHeight = expsList.scrollHeight;
+					expsList.style.maxHeight = currentHeight + "px";
+
+					// 👉 Forza reflow per far partire la transizione
+					void expsList.offsetHeight;
+
+					// 1. Arrotola (adesso inizia fluido)
+					expsList.style.maxHeight = "0px";
+					expsList.style.opacity = "0";
+
+					// 2. Dopo l’arrotolamento aggiorna il contenuto
+					setTimeout(() => {
+						exps.forEach((exp) => {
+							if (year === "all" || exp.getAttribute("data-year") === year) {
+								exp.style.display = "";
+							} else {
+								exp.style.display = "none";
+							}
+						});
+
+						// Fissa a 0 prima dello srotolamento
+						expsList.style.maxHeight = "0px";
+
+						// 👉 Forza reflow anche qui
+						void expsList.offsetHeight;
+
+						// 3. Srotola
+						const newHeight = expsList.scrollHeight;
+						expsList.style.maxHeight = newHeight + "px";
+						expsList.style.opacity = "1";
+
+						setTimeout(() => {
+							expsList.style.maxHeight = "none";
+						}, 600);
+					}, 600);
+				});
+			});
+		});
+
+	</script>
 
 	<Footer mode="about" />
 	
