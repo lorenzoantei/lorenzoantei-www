@@ -1,0 +1,34 @@
+---
+import { getTranslations, getLocale } from '../utils/i18n.js';
+
+const { fixedId } = Astro.props;
+
+const t = getTranslations(Astro.url.pathname);
+const locale = getLocale(Astro.url.pathname);
+
+// calcola la lingua opposta
+const opposite = locale === "it" ? "en" : "it";
+
+// percorso attuale
+let currentPath = Astro.url.pathname;
+
+// normalizza: togli eventuale trailing slash (eccetto se è solo "/")
+if (currentPath !== "/" && currentPath.endsWith("/")) {
+    currentPath = currentPath.slice(0, -1);
+}
+
+let newPath;
+
+if (locale === "it") {
+  // se siamo in IT, togli il prefisso /it
+    newPath = currentPath.replace(/^\/it(?=\/|$)/, "") || "/";
+} else {
+  // se siamo in EN, aggiungi /it all'inizio
+    newPath = currentPath === "/" ? "/it" : `/it${currentPath}`;
+}
+
+---
+<div>
+  <a href={`${newPath}${fixedId ? `#${fixedId}` : ''}`} class="text-2xl md:text-lg pl-1 pr-4 pt-4 pb-1 bg-red-500 bg-opacity-50 text-white opacity-100 duration-3000 hover:underline hover:animate-pulse"> {opposite.toUpperCase()}
+    </a>
+</div>

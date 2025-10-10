@@ -4,14 +4,13 @@ const { activePage = '' } = Astro.props;
 import { getCollection } from 'astro:content';
 import { getTranslations, getLocale } from '../utils/i18n.js';
 
-const locale = getLocale(Astro.url.pathname);
-
 // mappa locale -> collezione
 const collectionsMap = {
   en: 'expsEnList',
   it: 'expsItList',
 };
 
+const locale = getLocale(Astro.url.pathname);
 // fallback nel caso in cui locale non sia trovato
 const collectionName = collectionsMap[locale] ?? 'expsEnList';
 
@@ -26,32 +25,28 @@ const years = [...new Set(exps.map((p) => new Date(p.data.pubDate).getFullYear()
 
 const t = getTranslations(Astro.url.pathname);
 
-// calcola la lingua opposta
-const opposite = locale === "it" ? "en" : "it";
-// costruisci la nuova URL sostituendo solo il prefisso
-const currentPath = Astro.url.pathname;
-const newPath = currentPath.replace(/^\/(it|en)/, `/${opposite}`);
----
+import LangSwitch from '../components/LangSwitch.astro';
 
+// calcola la lingua opposta
+const fixedLocale = locale === "it" ? "it" : "";
+
+---
 <div class="bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32">
   <navbar class="w-full">
-    
     <!-- TITLE -->
     <div class="flex justify-between">
       <div class="p-4 flex items-start font-pixelify">
         <a
           id="site-title"
           class="z-[999] text-black text-3xl transition-colors duration-3000 ease-in-out hover:animate-pulse hover:text-pink-500 pr-4 pl-2 py-2"
-          href={`/${locale}/`}
-          
+          href={fixedLocale ? `/${fixedLocale}/` : `/`}
         >
           {SITE_TITLE}
         </a>
 
       </div>
     <div class="mt-10 md:mt-9">
-      <a href={newPath} class="text-md md:text-lg pl-1 mr-2 md:mr-0 pr-2 md:pt-5 pt-6 pb-1 bg-red-500 bg-opacity-50 text-white opacity-100 duration-3000 hover:underline hover:animate-pulse"> {opposite.toUpperCase()}
-      </a>
+      <LangSwitch />
     </div>
 
   </div>

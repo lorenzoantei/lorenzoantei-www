@@ -2,7 +2,8 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const baseSchema = ({ image }: any) =>
+// schema base come funzione (riceve l'helper image)
+const baseSchema = ({ image }: { image: any }) =>
   z.object({
     title: z.string(),
     description: z.string(),
@@ -13,12 +14,19 @@ const baseSchema = ({ image }: any) =>
     tags: z.array(z.string()).default([]),
   });
 
-const makeCollection = (lang: string) =>
+// helper che crea la collection per una lingua
+const makeCollection = (lang: 'en' | 'it') =>
   defineCollection({
-    loader: glob({ base: `./src/exps/${lang}`, pattern: '**/*.{md,mdx}' }),
-    schema: baseSchema,
+    // loader: punta alla cartella dei markdown per la lingua
+    loader: glob({
+      base: `./src/exps/${lang}`,
+      pattern: '**/*.{md,mdx}',
+    }),
+    // schema: passiamo la funzione che riceve gli helper (image)
+    schema: ({ image }) => baseSchema({ image }),
   });
 
+// esporta due collection separate
 export const collections = {
   expsEnList: makeCollection('en'),
   expsItList: makeCollection('it'),

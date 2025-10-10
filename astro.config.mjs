@@ -10,9 +10,6 @@ export default defineConfig({
   i18n: {
     locales: ["en", "it"],
     defaultLocale: "en",
-    routing: {
-      prefixDefaultLocale: true
-    }
   },
   integrations: [
     mdx({
@@ -22,9 +19,6 @@ export default defineConfig({
     }), 
     sitemap()
   ],
-  redirects: {
-    "/": "/en",
-  },
 
   vite: {
     plugins: [tailwindcss()],

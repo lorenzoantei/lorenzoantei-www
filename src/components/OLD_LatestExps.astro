@@ -77,7 +77,7 @@ const t = getTranslations(Astro.url.pathname);
 
             return (
             <li key={exp.id} class="text-gray-500">
-              <a href={`/${locale}/exps/${exp.id}/`}>
+              <a href={`/exps/${exp.id}/`}>
                 <div
                   class={`group px-2 text-xl py-4 ml-6 rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out hover:scale-[1.08] hover:animate-pulse ${colorClass} ${transformClass}`}
                 >
