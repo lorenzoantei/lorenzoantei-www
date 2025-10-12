@@ -1,6 +1,14 @@
 ---
 import { SITE_TITLE } from "../consts";
-const { activePage = '' } = Astro.props;
+
+import FormattedDate from '../components/FormattedDate.astro';
+
+const { 
+  activePage = '',
+  expTitle = '',
+  expDate = ''
+ } = Astro.props;
+
 import { getCollection } from 'astro:content';
 import { getTranslations, getLocale } from '../utils/i18n.js';
 
@@ -9,6 +17,7 @@ const collectionsMap = {
   en: 'expsEnList',
   it: 'expsItList',
 };
+
 
 const locale = getLocale(Astro.url.pathname);
 // fallback nel caso in cui locale non sia trovato
@@ -31,7 +40,7 @@ import LangSwitch from '../components/LangSwitch.astro';
 const fixedLocale = locale === "it" ? "it" : "";
 
 ---
-<div class="bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32">
+<div id="navbar-container" class="invert bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32 transition-all duration-500 ease-in-out">
   <navbar class="w-full">
     <!-- TITLE -->
     <div class="flex justify-between">
@@ -45,9 +54,10 @@ const fixedLocale = locale === "it" ? "it" : "";
         </a>
 
       </div>
-    <div class="mt-10 md:mt-9">
-      <LangSwitch />
-    </div>
+
+      <div id="lang-switch" class="mt-10 md:mt-9 transition-opacity duration-500">
+        <LangSwitch />
+      </div>
 
   </div>
 
@@ -56,41 +66,30 @@ const fixedLocale = locale === "it" ? "it" : "";
       id="menu"
       class="overflow-hidden max-h-0 opacity-0 flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 px-6 transition-all duration-500 ease-in-out"
     >
+      <div
+        class={activePage == 'exps'
+          ? 'hidden'
+          : 'opacity-0 translate-y-2 transition-all duration-500 ease-in-out delay-150 text-xl'
+        }
+      >
+      <div class="-pl-1 md:pl-0 pb-3">
+        <h2 class="text-3xl">{expTitle}</h2>
+        <FormattedDate date={expDate} />
+      </div>
+    </div>
       
     </div>
 
-    <div
-      class={activePage == 'focus-article'
-        ? 'hidden'
-        : 'block ml-4 md:flex md:flex-row'
-      }
-    >
-
-      <h2 class="text-3xl text-black py-3 pl-1 pr-3 md:p-3 md:pl-2 inline-block animate-bg-rotate animate-pulse">
-        {t.experiences}
-      </h2>
-      
-      <!-- Pulsanti Anni -->
-      <div class="my-4 md:my-0 flex gap-2 flex-wrap md:ml-12">
-        {years.map((year) => (
-          <button 
-          data-year={year} 
-          class="filter-btn pl-1 pr-3 py-1 md:p-3 md:pl-2 hover:bg-black hover:text-cyan-500 transition-colors duration-300 cursor-pointer text-2xl"
-          >
-              {year}
-            </button>
-          ))}
-      </div>
-    
-  </div>
 
   </navbar>
+
 </div>
 
 <!-- Script scroll -->
 <script>
   const menu = document.getElementById("menu");
-  const menuLinks = menu.querySelectorAll("a");
+  const navbarcontainer = document.getElementById("navbar-container");
+  const menuLinks = menu.querySelectorAll("div");
   const title = document.getElementById("site-title");
 
   let lastScrollY = window.scrollY;
@@ -118,14 +117,31 @@ const fixedLocale = locale === "it" ? "it" : "";
     });
   }
 
-  function handleScroll() {
-    clearTimeout(hideTimeout);
+const langSwitch = document.getElementById("lang-switch");
 
-    if (window.scrollY === 0) {
-      // In cima: menu sempre visibile, niente auto-hide
-      showMenu();
-      return;
+function handleScroll() {
+  clearTimeout(hideTimeout);
+
+  if (window.scrollY === 0) {
+    showMenu();
+    if (langSwitch) {
+      langSwitch.style.opacity = "1";
+      langSwitch.style.pointerEvents = "auto";
     }
+    if (navbarcontainer) {
+      navbarcontainer.classList.remove("invert");
+    }
+    return;
+  } else {
+    if (navbarcontainer) {
+      navbarcontainer.classList.add("invert");
+    }
+
+    if (langSwitch) {
+      langSwitch.style.opacity = "0";
+      langSwitch.style.pointerEvents = "none";
+    }
+  }
 
     if (window.scrollY > lastScrollY) {
       // Scroll verso il basso
@@ -140,12 +156,12 @@ const fixedLocale = locale === "it" ? "it" : "";
       }, 3000);
     }
 
-    // Effetto quadrato nero sul title
-    if (window.scrollY > 50) {
-      title.classList.add("bg-black", "text-white", "shadow-md");
-    } else {
-      title.classList.remove("bg-black", "text-white", "shadow-md");
-    }
+    // // Effetto quadrato nero sul title
+    // if (window.scrollY > 50) {
+    //   title.classList.add("bg-black", "text-white", "shadow-md");
+    // } else {
+    //   title.classList.remove("bg-black", "text-white", "shadow-md");
+    // }
 
     lastScrollY = window.scrollY;
   }
