@@ -10,11 +10,9 @@ export async function getStaticPaths() {
 		props: exp,
 	}));
 }
-type Props = CollectionEntry<'expsEnList'>;
 
 const exp = Astro.props;
 const { Content } = await render(exp);
-
 
 import Footer from '../../components/Footer.astro';
 
