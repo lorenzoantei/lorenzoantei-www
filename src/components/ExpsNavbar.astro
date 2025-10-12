@@ -40,7 +40,7 @@ import LangSwitch from '../components/LangSwitch.astro';
 const fixedLocale = locale === "it" ? "it" : "";
 
 ---
-<div id="navbar-container" class="invert bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32 transition-all duration-500 ease-in-out">
+<div id="navbar-container" class="invert bg-white w-screen fixed top-0 z-[99] shadow-lg shadow-white md:px-6 lg:px-32 transition-all duration-800 ease-in-out">
   <navbar class="w-full">
     <!-- TITLE -->
     <div class="flex justify-between">
@@ -64,7 +64,7 @@ const fixedLocale = locale === "it" ? "it" : "";
     <!-- MENU (inizialmente nascosto) -->
     <div
       id="menu"
-      class="overflow-hidden max-h-0 opacity-0 flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 px-6 transition-all duration-500 ease-in-out"
+      class="overflow-hidden max-h-0 opacity-0 flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 px-6 transition-all duration-800 ease-in-out"
     >
       <div
         class={activePage == 'exps'
