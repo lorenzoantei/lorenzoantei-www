@@ -1,6 +1,6 @@
 ---
 title: '[RESTAURO] Teschio vivente'
-description: ''
+description: 'Restauro dell''installazione interattiva Teschio vivente all''Accademia di Belle Arti di Carrara'
 pubDate: 'Jul 07 2025'
 heroImage: ''
 published: true
@@ -8,13 +8,15 @@ tags: ["home", "art"]
 ---
 
 import IframeWithShadow from '../../../components/IframeWithShadow.astro';
+import ImageWithShadow from '../../../components/ImageWithShadow.astro';
 import Paragraph from '../../../components/Paragraph.astro';
+import Swiper from '../../../components/Swiper.astro';
 
 <IframeWithShadow 
   src="
     https://player.vimeo.com/video/1126554997?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1
   " 
-  alt="Living skull" 
+  alt="Teschio vivente" 
 />
 
 <br />
@@ -23,9 +25,49 @@ import Paragraph from '../../../components/Paragraph.astro';
 <Paragraph>
 Un teschio di dimensioni monumentali osserva i visitatori, seguendoli con lo sguardo mentre varcano la soglia del museo. Il teschio dei pirati, il teschio diamantato di Damien Hirst, il teschio come simbolo di morte, il teschio della maschera veneziana, il teschio danzante, messicano e tibetano, il teschio della paura e dell'orrore, il teschio sulle t-shirt degli adolescenti, il teschio tatuato, il teschio memento, il teschio di Amleto e il teschio interattivo…
 </Paragraph>
+
+<br />
+<ImageWithShadow src="/images/exps/teschio/25-03-04_teschio_002.webp"></ImageWithShadow>
+
 <Paragraph>
 L'immaginario si riempie della figura del teschio (come di quelle del cuore, dello zombie o del robot), la rende "simpatica", la decostruisce, la analizza, la diffonde come amuleto, come segnale, come simbolo di superiorità sulle ingiustizie e sulle piccolezze della vita terrena, sui dolori e sulla follia stessa della vita, come specchio del vivere contemporaneo. Il teschio vivente rimanda a tutto ciò che ci guarda impietosamente, freddamente, e nello stesso tempo gioca con noi a impersonare un "piccolo grande fratello" che non ci fa neanche più paura, anzi, ci blandisce permettendo di metterci nel suo punto di vista.
 </Paragraph>
+
+<br />
+<br />
+<div>
+  <Swiper 
+    images={[
+      "/images/exps/teschio/archivio/realizzo_teschio_1.webp",
+      "/images/exps/teschio/archivio/realizzo_teschio_2.webp",
+      "/images/exps/teschio/archivio/teschio_museo_marmo_1.webp",
+      "/images/exps/teschio/archivio/teschio_museo_marmo_2.webp",
+      "/images/exps/teschio/archivio/teschio_museo_marmo_3.webp",
+      "/images/exps/teschio/archivio/teschio_tacca_IMG771_b.webp",
+      "/images/exps/teschio/archivio/teschio_tacca_IMG773_b.webp",
+    ]} 
+    delay={5000}
+  />
+</div>
+<br />
+<br />
+
 <Paragraph>
 Restauro realizzato come progetto di tesi all'interno dell'Accademia di Belle Arti di Carrara. L'opera originale è stata realizzata da Massimo Cittadini, Massimiliano Menconi, Marco Ambrosini, Chiara Mastrini, Andrea Camillo Nepori, Jessner Passarella, Francesca Tognoni L'opera originale è stata esposta nel 2013 all'interno del Museo del Marmo (Carrara).
 </Paragraph>
+
+<br />
+<br />
+
+<div>
+  <Swiper 
+    images={[
+      "/images/exps/teschio/25-03-04_teschio_003.webp",
+      "/images/exps/teschio/25-03-04_teschio_001.webp",
+      "/images/exps/teschio/25-03-04_teschio_004.webp",
+      "/images/exps/teschio/25-03-04_teschio_005.webp",
+    ]} 
+    delay={5000}
+  />
+</div>
+
