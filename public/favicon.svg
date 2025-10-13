@@ -24,8 +24,8 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
      inkscape:zoom="0.6440867"
-     inkscape:cx="397.46202"
-     inkscape:cy="374.94952"
+     inkscape:cx="396.68573"
+     inkscape:cy="2.328879"
      inkscape:window-width="2293"
      inkscape:window-height="932"
      inkscape:window-x="0"
@@ -45,15 +45,11 @@
      inkscape:label="Livello 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <text
-       xml:space="preserve"
-       transform="matrix(0.60956867,0,0,0.60956867,-46.702931,-101.47987)"
+    <path
+       style="font-size:266.667px;font-family:'Pixelify Sans';-inkscape-font-specification:'Pixelify Sans';white-space:pre;fill:#ececec"
+       d="M 147.39562,360.72431 V 336.72428 H 123.12893 V 189.25743 h 26.93336 v 144.80018 h 69.86675 v -24.2667 h 27.20004 v 26.93337 h -24.53337 v 24.00003 z"
        id="text1"
-       style="font-size:266.667px;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1);fill:#ececec"><tspan
-         x="107.12891"
-         y="357.5243"
-         id="tspan3"><tspan
-           style="font-family:'Pixelify Sans';-inkscape-font-specification:'Pixelify Sans'"
-           id="tspan2">L</tspan></tspan></text>
+       transform="matrix(0.60956867,0,0,0.60956867,-46.702931,-101.47987)"
+       aria-label="L" />
   </g>
 </svg>
