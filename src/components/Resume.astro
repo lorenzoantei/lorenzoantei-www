@@ -1,0 +1,249 @@
+---
+import { getTranslations, getLocale } from '../utils/i18n.js';
+
+const t = getTranslations(Astro.url.pathname);
+const locale = getLocale(Astro.url.pathname);
+---
+
+<div class="h-auto">
+    <div id="bio-container" class="text-2xl my-12 md:my-32">
+      <div id="bio-short" class="md:max-w-1/2">
+        
+        <div class="pb-12">
+          <h3 class="py-4 text-4xl">2025</h3>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">nov ~ in corso</h4>
+            <p>
+              rosesforcarraraproject.it<br>
+              Catalogo digitale e sviluppo piattaforma di realtà aumentata
+              <br>
+            </p>
+          </div>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">set ~ in corso</h4>
+            <p>
+              Fotografo
+              <br><a class="underline" href="https://accademiacarrara.it/" target="_blank">Accademia di Belle Arti di Carrara</a>
+            </p>
+          </div>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">apr ~ in corso</h4>
+            <p>
+              Colorist
+              <br><a class="underline" href="https://tvfinternational.com/" target="_blank">TVF International</a>
+            </p>
+          </div>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">feb</h4>
+            <p>
+              Diploma Accademico di secondo livello ~ Net Art e culture digitali<br>
+              "Catturare l'effimero. L'archivio come pratica artivista - verso un'estetica dell'effimero"<br>
+              Progetto: <a class="underline" href="/it/exps/2025/teschio-vivente/" target="_blank">Restauro "Teschio vivente"</a><br>
+              <a class="underline" href="https://accademiacarrara.it/" target="_blank">Accademia di Belle Arti di Carrara</a>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="pb-12">
+          <h3 class="py-4 text-4xl">2024</h3>
+          
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">nov ~ in corso</h4>
+            <p>
+              Media Manager Lucca Comics & Games <br><a class="underline" href="https://www.luccacrea.it/" target="_blank">Lucca Crea Srl</a>
+            </p>
+          </div>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">giu ~ in corso</h4>
+            <p>
+              Archivista
+              <br><a class="underline" href="https://www.autistici.org/giacomoverdelab/" target="_blank">Laboratorio Intergalattico Giacomo Verde Artivista</a>
+            </p>
+          </div>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">giu ~ feb '25</h4>
+            <p>
+              Film editor
+              <br><a class="underline" href="https://omava.com/" target="_blank">Omava LLC</a>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="pb-12">
+          <h3 class="py-4 text-4xl">2023</h3>
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">ago</h4>
+            <p>
+              Simulacra; Whore; Madonna;<br>
+              <a href="/it/exps/2023/tmp-simulacra/" target="_blank" class="underline">Video installazione con Michelle Usai</a>
+              <br>Noocene - Palazzo Binelli - con_vivere Carrara
+            </p>
+          </div>
+          
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">giu</h4>
+            <p>
+              Workshop - Live coding su Hydra.js e FoxDot <br>Carrara Studi Aperti 2023
+            </p>
+          </div>
+
+        </div>
+
+        <div class="pb-12">
+          <h3 class="py-4 text-4xl">2022</h3>
+          
+
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">set</h4>
+            <p>
+              Restauro Reperto Antropologico UnoNoveNoveSette di Giacomo Verde<br>
+              Giacomo Verde: Liberare arte da artisti<br>
+            </p>
+            <br>
+            <p>
+              Diploma Accademico di primo livello ~ Arti multimediali<br>
+              "La pornografia è arte (?)"<br>
+              Progetto: <a class="underline" href="/it/exps/2023/tmp-brdrjourney" target="_blank">brdrJourney</a><br>
+              <a class="underline" href="https://accademiacarrara.it/" target="_blank">Accademia di Belle Arti di Carrara</a>
+            </p>
+          </div>
+          
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">giu</h4>
+            <p>
+              (mi)rage - you’re in an empty place for 24 hours a day, 7 days a week<br>
+              Video installazione<br>
+              Giacomo Verde: Liberare arte da artisti<br>
+              <a class="underline" href="https://air.unimi.it/handle/2434/947604" target="_blank">Intervista</a>
+            </p>
+          </div>
+
+        </div>
+
+        <div class="pb-12">
+          <h3 class="py-4 text-4xl">2021</h3>
+          
+          <div class="py-2">
+            <h4 class="pt-2 text-2xl italic">apr ~ in corso</h4>
+            <p>
+              Senior Full Sttack Web Developer
+              <br><a class="underline" target="_blank" href="https://quivi.it">Quivi (LU)</a>
+            </p>
+          </div>
+
+        </div>
+
+        
+      </div>
+
+      <div
+        id="bio-full"
+        class="hidden space-y-6 opacity-0 transition-opacity duration-1000 pt-32"
+      >
+        <div class="flex md:flex-row flex-col justify-between">
+          <div
+            class="md:max-w-1/2 text-2xl md:text-2xl italic tracking-wide leading:8 md:leading-12"
+          >
+            <p>
+              <!-- I am an Italian computer artist and software engineer; I explore code
+              across networks and realities, moving between digital art and
+              creative programming. -->
+              {t.bio1}
+            </p>
+            <p set:html={t.bio2}></p>
+            <p set:html={t.bio3}></p>
+            <p set:html={t.bio4}></p>
+            <p set:html={t.bio5}></p>
+            <p set:html={t.bio6}></p>
+            
+          </div>
+
+          <div
+            class="sticky top-20 max-w-xs w-full md:py-0 py-32"
+            style="max-height: calc(100vh - 5rem);"
+          >
+            <div class="relative w-full aspect-square">
+              <img
+                src="/images/avatart.gif"
+                alt="avatart"
+                class="object-cover w-full h-full"
+                style="max-height: 100%;"
+              />
+            </div>
+          </div>
+
+          <!-- <section
+            class="bg-gray-100 p-2 rounded-lg md:mx-0 mx-2 md:max-w-200 my-12"
+          >
+            <pre
+              class="bg-gray-900 text-green-400 font-mono text-sm leading-relaxed p-4 rounded overflow-x-auto whitespace-pre-wrap break-words">
+              {`int main() {
+                LifeLoop loop;
+                std::cout << "The loop is everything; everything is the loop." << std::endl;
+                loop.run();
+                return 0;
+              }`}
+            </pre>
+          </section> -->
+        </div>
+      </div>
+
+
+      <!-- Controlla il toggle del testo in bio  -->
+      <script is:inline>
+        function toggleText() {
+          const short = document.getElementById("bio-short");
+          const full = document.getElementById("bio-full");
+          const bioContainer = document.getElementById("bio-container");
+
+          if (short.classList.contains("hidden")) {
+            // Mostra short, nasconde full
+            short.classList.remove("hidden");
+            full.classList.add("opacity-0"); // nasconde gradualmente
+            setTimeout(() => {
+              full.classList.add("hidden");
+            }, 500); // dopo il fade-out
+          } else {
+            // Nasconde short, mostra full con fade-in
+            short.classList.add("hidden");
+            full.classList.remove("hidden"); // rimuove hidden subito
+            setTimeout(() => {
+              full.classList.remove("opacity-0"); // poi fade-in
+            }, 10); // piccolo delay per forzare il reflow
+          }
+
+          if (bioContainer) {
+            bioContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      </script>
+
+<script>
+    // JS da inserire in pagina o componente
+    const glitchElements = document.querySelectorAll(".glitchy");
+
+    function getRandomColor() {
+      // Genera colore HEX casuale
+      return (
+        "#" +
+        Math.floor(Math.random() * 16777215)
+          .toString(16)
+          .padStart(6, "0")
+      );
+    }
+
+    glitchElements.forEach((el) => {
+      el.addEventListener("animationiteration", () => {
+        el.style.setProperty("--glitch-color", getRandomColor());
+      });
+    });
+  </script>

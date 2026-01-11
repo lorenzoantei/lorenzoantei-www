@@ -1,0 +1,23 @@
+---
+import AboutLayout from '../../../layouts/AboutLayout.astro';
+
+import Hero from '../../../components/Hero.astro';
+import Resume from '../../../components/Resume.astro';
+import HydraFrame from '../../../components/HydraFrame.astro';
+import Exps from '../../../components/Exps.astro';
+import Footer from '../../../components/Footer.astro';
+---
+
+<AboutLayout>
+	<main class="mx-3 md:mx-24">
+
+		<Hero />
+		<Resume />
+	
+		<div class="-mx-3 md:-mx-24 ">
+			
+            
+            <Footer mode="focusexp" />
+	
+        </div>
+</AboutLayout>
