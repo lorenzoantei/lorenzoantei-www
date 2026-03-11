@@ -1,0 +1,268 @@
+<div
+	class="pixel-intro"
+	data-pixel-intro
+	aria-hidden="true"
+>
+	<div class="pixel-intro__grid" data-pixel-grid></div>
+</div>
+
+<style is:global>
+	body.pixel-intro-loading > *:not(.pixel-intro) {
+		visibility: hidden;
+	}
+
+	.pixel-intro {
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		display: grid;
+		place-items: stretch;
+		background: transparent;
+		pointer-events: all;
+	}
+
+	.pixel-intro.is-clearing {
+		pointer-events: none;
+	}
+
+	.pixel-intro.is-gone {
+		display: none;
+	}
+
+	.pixel-intro__grid {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		background: transparent;
+	}
+
+	.pixel-intro__pixel {
+		width: calc(100% + 1px);
+		height: calc(100% + 1px);
+		margin-right: -1px;
+		margin-bottom: -1px;
+		opacity: 1;
+		will-change: opacity, filter, transform;
+	}
+
+	.pixel-intro__pixel.is-denoising {
+		animation-name: pixel-denoise;
+		animation-duration: var(--pixel-denoise-duration, 45ms);
+		animation-timing-function: steps(5, end);
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes pixel-denoise {
+		0% {
+			opacity: 1;
+			filter: brightness(var(--pixel-brightness, 1)) saturate(var(--pixel-saturation, 1));
+			transform: scale(1);
+		}
+		25% {
+			opacity: 0.92;
+			filter: brightness(calc(var(--pixel-brightness, 1) * 1.3))
+				saturate(calc(var(--pixel-saturation, 1) * 1.15));
+			transform: scale(1.02);
+		}
+		50% {
+			opacity: 0.48;
+			filter: brightness(calc(var(--pixel-brightness, 1) * 0.85))
+				saturate(calc(var(--pixel-saturation, 1) * 0.75));
+			transform: scale(0.98);
+		}
+		75% {
+			opacity: 0.16;
+			filter: brightness(calc(var(--pixel-brightness, 1) * 0.55))
+				saturate(calc(var(--pixel-saturation, 1) * 0.45));
+			transform: scale(0.94);
+		}
+		100% {
+			opacity: 0;
+			filter: brightness(0.35) saturate(0.2);
+			transform: scale(0.9);
+		}
+	}
+</style>
+
+<script>
+	const setupPixelIntro = () => {
+		document.body.classList.add("pixel-intro-loading");
+
+		const intro = document.querySelector("[data-pixel-intro]");
+		const grid = intro?.querySelector("[data-pixel-grid]");
+
+		if (!(intro instanceof HTMLElement) || !(grid instanceof HTMLElement)) {
+			document.body.classList.remove("pixel-intro-loading");
+			return;
+		}
+
+		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const palettes = [
+			["#030712", "#172554", "#1d4ed8", "#60a5fa", "#dbeafe"],
+			["#081c15", "#1b4332", "#2d6a4f", "#95d5b2", "#d8f3dc"],
+			["#1f1147", "#533483", "#8f43ee", "#c8b6ff", "#f3e8ff"],
+			["#1a0f0a", "#7c2d12", "#ea580c", "#fdba74", "#ffedd5"],
+			["#111827", "#374151", "#6b7280", "#d1d5db", "#f9fafb"],
+			["#172033", "#3a506b", "#5bc0be", "#c5f9ff", "#f4fcff"]
+		];
+		let animationFrame = 0;
+		let clearTimer = 0;
+		let removeTimer = 0;
+		let introToken = 0;
+
+		const shuffle = (items) => {
+			for (let index = items.length - 1; index > 0; index -= 1) {
+				const swapIndex = Math.floor(Math.random() * (index + 1));
+				[items[index], items[swapIndex]] = [items[swapIndex], items[index]];
+			}
+			return items;
+		};
+
+		const buildGrid = () => {
+			if (animationFrame) {
+				window.cancelAnimationFrame(animationFrame);
+			}
+
+			if (clearTimer) {
+				window.clearTimeout(clearTimer);
+			}
+
+			if (removeTimer) {
+				window.clearTimeout(removeTimer);
+			}
+
+			introToken += 1;
+			const currentToken = introToken;
+			grid.replaceChildren();
+			intro.classList.remove("is-clearing", "is-gone");
+			document.body.style.overflow = "hidden";
+
+			const cols = 9;
+			const rows = 12;
+			const total = cols * rows;
+			const pixelObjects = [];
+			const selectedPalette = palettes[Math.floor(Math.random() * palettes.length)];
+
+			grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+			grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+			for (let index = 0; index < total; index += 1) {
+				const pixel = document.createElement("div");
+				const row = Math.floor(index / cols);
+				const col = index % cols;
+				const gradientPosition = ((row / Math.max(1, rows - 1)) + (col / Math.max(1, cols - 1))) / 2;
+				const paletteIndex = Math.min(
+					selectedPalette.length - 1,
+					Math.max(
+						0,
+						Math.round(
+							gradientPosition * (selectedPalette.length - 1) + (Math.random() * 1.4 - 0.7)
+						)
+					)
+				);
+				const color = selectedPalette[paletteIndex];
+				const brightness = 0.72 + Math.random() * 0.6;
+				const saturation = 0.8 + Math.random() * 0.8;
+				const duration = 24 + Math.floor(Math.random() * 28);
+
+				pixel.className = "pixel-intro__pixel";
+				pixel.style.backgroundColor = color;
+				pixel.style.opacity = "1";
+				pixel.style.setProperty("--pixel-brightness", `${brightness}`);
+				pixel.style.setProperty("--pixel-saturation", `${saturation}`);
+				pixel.style.setProperty("--pixel-denoise-duration", `${duration}ms`);
+				pixel.style.filter = `brightness(${brightness}) saturate(${saturation})`;
+
+				grid.appendChild(pixel);
+				pixelObjects.push({
+					index,
+					element: pixel,
+					cleared: false,
+					duration,
+					clear() {
+						if (this.cleared) {
+							return;
+						}
+
+						this.cleared = true;
+						this.element.classList.add("is-denoising");
+					}
+				});
+			}
+
+			document.body.classList.remove("pixel-intro-loading");
+
+			const finishIntro = () => {
+				window.clearTimeout(clearTimer);
+				window.clearTimeout(removeTimer);
+				intro.classList.add("is-clearing");
+				removeTimer = window.setTimeout(() => {
+					intro.classList.add("is-gone");
+					document.body.style.overflow = "";
+				}, reduceMotion ? 20 : 70);
+			};
+
+			const clearQueue = shuffle([...pixelObjects]);
+			const totalClearDuration = 1000;
+			const startDelay = 20;
+			const stepDelay = 16;
+			const totalSteps = Math.max(1, Math.floor((totalClearDuration - startDelay) / stepDelay));
+			const pixelsPerStep = Math.max(1, Math.ceil(clearQueue.length / totalSteps));
+			const clearNextPixel = () => {
+				if (currentToken !== introToken) {
+					return;
+				}
+
+				if (!clearQueue.length) {
+					finishIntro();
+					return;
+				}
+
+				for (let index = 0; index < pixelsPerStep; index += 1) {
+					const nextPixel = clearQueue.pop();
+					if (!nextPixel) {
+						break;
+					}
+
+					nextPixel.clear();
+				}
+
+				if (!clearQueue.length) {
+					const longestDuration = 60;
+					clearTimer = window.setTimeout(finishIntro, longestDuration);
+					return;
+				}
+
+				clearTimer = window.setTimeout(clearNextPixel, stepDelay);
+			};
+
+			if (reduceMotion) {
+				animationFrame = window.requestAnimationFrame(() => {
+					pixelObjects.forEach((pixel) => pixel.clear());
+					removeTimer = window.setTimeout(() => {
+						intro.classList.add("is-gone");
+						document.body.style.overflow = "";
+					}, 40);
+				});
+				return;
+			}
+
+			clearTimer = window.setTimeout(clearNextPixel, startDelay);
+		};
+
+		buildGrid();
+
+		let resizeTimer = 0;
+		window.addEventListener("resize", () => {
+			window.clearTimeout(resizeTimer);
+			resizeTimer = window.setTimeout(buildGrid, 180);
+		});
+	};
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", setupPixelIntro, { once: true });
+	} else {
+		setupPixelIntro();
+	}
+</script>
